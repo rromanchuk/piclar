@@ -72,7 +72,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    ALog(@"did tap row with delegate %@", self.delegate);
+    ALog(@"parent is %@", self.parentViewController);
+    [self.delegate doesNeedSegueFor:@"feed" sender:self];
     
     // Navigation logic may go here. Create and push another view controller.
     /*

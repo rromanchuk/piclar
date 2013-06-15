@@ -14,6 +14,14 @@ typedef enum {
     numOKPaymentCellRow
 } LeftViewRowType;
 
-@interface LeftViewController : UITableViewController
+@protocol LeftViewDelegate;
 
+@interface LeftViewController : UITableViewController
+@property (nonatomic, weak) id <LeftViewDelegate> delegate;
+@end
+
+@protocol LeftViewDelegate <NSObject>
+
+@required
+- (void)doesNeedSegueFor:(NSString *)identifier sender:(id)sender;
 @end

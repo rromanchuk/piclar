@@ -245,7 +245,7 @@
         ApplicatonNavigationController *nc = (ApplicatonNavigationController *)[segue destinationViewController];
         nc.isChildNavigationalStack = YES;
         [Flurry logAllPageViews:nc];
-        PhotoNewViewController *vc = (PhotoNewViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+        CreatePhotoViewController *vc = (CreatePhotoViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.delegate = self;
     } else if ([[segue identifier] isEqualToString:@"ShowLikers"]) {

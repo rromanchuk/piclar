@@ -6,7 +6,6 @@
 #import "BaseNavigationViewController.h"
 #import "User+Rest.h"
 #import "Flurry.h"
-#import "UserRequestEmailViewController.h"
 #import "Utils.h"
 #import "AppDelegate.h"
 #import <FacebookSDK/FacebookSDK.h>
@@ -169,11 +168,6 @@ DDPageControl *pageControl;
         FeedIndexViewController *vc = (FeedIndexViewController *) nc.topViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.currentUser = self.currentUser;
-    } else if ([[segue identifier] isEqualToString:@"RequestEmail"]) {
-        UINavigationController *nc = [segue destinationViewController];
-        [Flurry logAllPageViews:nc];
-        UserRequestEmailViewController *vc = (UserRequestEmailViewController *)  nc.topViewController;
-        vc.delegate = self;
     }
 }
 

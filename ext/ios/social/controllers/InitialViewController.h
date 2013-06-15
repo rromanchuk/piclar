@@ -8,7 +8,9 @@
 
 #import "IIViewDeckController.h"
 #import "User+Rest.h"
-
-@interface InitialViewController : IIViewDeckController
+#import "LeftViewController.h"
+@interface InitialViewController : IIViewDeckController <LeftViewDelegate>
 
 @end
+
+

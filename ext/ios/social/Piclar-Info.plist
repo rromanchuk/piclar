@@ -63,7 +63,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>5</string>
+	<string>6</string>
 	<key>Configuration</key>
 	<string>$(CONFIGURATION)</string>
 	<key>FacebookAppID</key>
@@ -74,6 +74,7 @@
 	<array>
 		<string>ParaTypeCourierTT.ttf</string>
 		<string>melifontsRayna.ttf</string>
+		<string>PTSans.ttc</string>
 	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>MainStoryboard</string>

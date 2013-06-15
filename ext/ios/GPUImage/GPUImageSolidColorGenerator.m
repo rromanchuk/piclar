@@ -1,19 +1,36 @@
 #import "GPUImageSolidColorGenerator.h"
 
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 NSString *const kGPUSolidColorFragmentShaderString = SHADER_STRING
 (
  precision lowp float;
- 
+
  varying highp vec2 textureCoordinate;
- 
  uniform sampler2D inputImageTexture;
  uniform vec4 color;
- 
+ uniform float useExistingAlpha;
+
  void main()
  {
-     gl_FragColor = color;
+     lowp vec4 textureColor = texture2D(inputImageTexture, textureCoordinate);
+     gl_FragColor = vec4(color.rgb, max(textureColor.a, 1.0 - useExistingAlpha));
  }
-);
+ );
+#else
+NSString *const kGPUSolidColorFragmentShaderString = SHADER_STRING
+(
+ varying vec2 textureCoordinate;
+ uniform sampler2D inputImageTexture;
+ uniform vec4 color;
+ uniform float useExistingAlpha;
+
+ void main()
+ {
+     vec4 textureColor = texture2D(inputImageTexture, textureCoordinate);
+     gl_FragColor = vec4(color.rgb, max(textureColor.a, 1.0 - useExistingAlpha));
+ }
+ );
+#endif
 
 @implementation GPUImageSolidColorGenerator
 
@@ -27,8 +44,10 @@ NSString *const kGPUSolidColorFragmentShaderString = SHADER_STRING
     }
     
     colorUniform = [filterProgram uniformIndex:@"color"];
+    useExistingAlphaUniform = [filterProgram uniformIndex:@"useExistingAlpha"];
     
 	self.color = (GPUVector4){0.0f, 0.0f, 0.5f, 1.0f};
+    self.useExistingAlpha = NO;
     
     return self;
 }
@@ -50,7 +69,7 @@ NSString *const kGPUSolidColorFragmentShaderString = SHADER_STRING
 - (void)addTarget:(id<GPUImageInput>)newTarget atTextureLocation:(NSInteger)textureLocation;
 {
     [super addTarget:newTarget atTextureLocation:textureLocation];
-    
+
     if (!CGSizeEqualToSize(inputTextureSize, CGSizeZero))
     {
         [newTarget setInputSize:inputTextureSize atIndex:textureLocation];
@@ -60,7 +79,7 @@ NSString *const kGPUSolidColorFragmentShaderString = SHADER_STRING
 
 - (void)setColor:(GPUVector4)newValue;
 {
-	[self setColorRed:_color.one green:_color.two blue:_color.three alpha:_color.four];
+	[self setColorRed:newValue.one green:newValue.two blue:newValue.three alpha:newValue.four];
 }
 
 - (void)setColorRed:(GLfloat)redComponent green:(GLfloat)greenComponent blue:(GLfloat)blueComponent alpha:(GLfloat)alphaComponent;
@@ -71,11 +90,13 @@ NSString *const kGPUSolidColorFragmentShaderString = SHADER_STRING
     _color.four = alphaComponent;
     
     [self setVec4:_color forUniform:colorUniform program:filterProgram];
-    
-    if (!CGSizeEqualToSize(inputTextureSize, CGSizeZero))
-    {
-        [self newFrameReadyAtTime:kCMTimeIndefinite atIndex:0];
-    }
+}
+
+- (void)setUseExistingAlpha:(BOOL)useExistingAlpha;
+{
+    _useExistingAlpha = useExistingAlpha;
+
+    [self setInteger:(useExistingAlpha ? 1 : 0) forUniform:useExistingAlphaUniform program:filterProgram];
 }
 
 @end

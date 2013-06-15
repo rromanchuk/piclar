@@ -7,7 +7,6 @@ NSString *const kGPUImageBoxBlurVertexShaderString = SHADER_STRING
 
  uniform float texelWidthOffset; 
  uniform float texelHeightOffset; 
- uniform highp float blurSize;
 
  varying vec2 centerTextureCoordinate;
  varying vec2 oneStepLeftTextureCoordinate;
@@ -19,8 +18,8 @@ NSString *const kGPUImageBoxBlurVertexShaderString = SHADER_STRING
  {
      gl_Position = position;
           
-     vec2 firstOffset = vec2(1.5 * texelWidthOffset, 1.5 * texelHeightOffset) * blurSize;
-     vec2 secondOffset = vec2(3.5 * texelWidthOffset, 3.5 * texelHeightOffset) * blurSize;
+     vec2 firstOffset = vec2(1.5 * texelWidthOffset, 1.5 * texelHeightOffset);
+     vec2 secondOffset = vec2(3.5 * texelWidthOffset, 3.5 * texelHeightOffset);
      
      centerTextureCoordinate = inputTextureCoordinate;
      oneStepLeftTextureCoordinate = inputTextureCoordinate - firstOffset;
@@ -30,7 +29,7 @@ NSString *const kGPUImageBoxBlurVertexShaderString = SHADER_STRING
  }
 );
 
-
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 NSString *const kGPUImageBoxBlurFragmentShaderString = SHADER_STRING
 (
  precision highp float;
@@ -54,6 +53,29 @@ NSString *const kGPUImageBoxBlurFragmentShaderString = SHADER_STRING
      gl_FragColor = fragmentColor;
  }
 );
+#else
+NSString *const kGPUImageBoxBlurFragmentShaderString = SHADER_STRING
+(
+ uniform sampler2D inputImageTexture;
+ 
+ varying vec2 centerTextureCoordinate;
+ varying vec2 oneStepLeftTextureCoordinate;
+ varying vec2 twoStepsLeftTextureCoordinate;
+ varying vec2 oneStepRightTextureCoordinate;
+ varying vec2 twoStepsRightTextureCoordinate;
+ 
+ void main()
+ {
+     vec4 fragmentColor = texture2D(inputImageTexture, centerTextureCoordinate) * 0.2;
+     fragmentColor += texture2D(inputImageTexture, oneStepLeftTextureCoordinate) * 0.2;
+     fragmentColor += texture2D(inputImageTexture, oneStepRightTextureCoordinate) * 0.2;
+     fragmentColor += texture2D(inputImageTexture, twoStepsLeftTextureCoordinate) * 0.2;
+     fragmentColor += texture2D(inputImageTexture, twoStepsRightTextureCoordinate) * 0.2;
+     
+     gl_FragColor = fragmentColor;
+ }
+);
+#endif
 
 @implementation GPUImageBoxBlurFilter
 
@@ -68,9 +90,6 @@ NSString *const kGPUImageBoxBlurFragmentShaderString = SHADER_STRING
     {
 		return nil;
     }
-    
-    firstBlurSizeUniform = [filterProgram uniformIndex:@"blurSize"];
-    secondBlurSizeUniform = [secondFilterProgram uniformIndex:@"blurSize"];
 
     self.blurSize = 1.0;
     
@@ -84,8 +103,10 @@ NSString *const kGPUImageBoxBlurFragmentShaderString = SHADER_STRING
 {
     _blurSize = newValue;
     
-    [self setFloat:_blurSize forUniform:firstBlurSizeUniform program:filterProgram];
-    [self setFloat:_blurSize forUniform:secondBlurSizeUniform program:secondFilterProgram];
+    _verticalTexelSpacing = _blurSize;
+    _horizontalTexelSpacing = _blurSize;
+    
+    [self setupFilterForSize:[self sizeOfFBO]];    
 }
 
 @end

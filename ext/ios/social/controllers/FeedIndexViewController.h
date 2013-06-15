@@ -7,7 +7,7 @@
 //
 
 #import "CoreDataTableViewController.h"
-#import "PhotoNewViewController.h"
+#import "CreatePhotoViewController.h"
 #import "NoResultscontrollerViewController.h"
 #import "UserViewController.h"
 #import "ODRefreshControl.h"

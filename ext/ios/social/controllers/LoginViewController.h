@@ -1,13 +1,12 @@
 #import "Vkontakte.h"
 #import "BaseViewController.h"
 #import "User.h"
-#import "UserRequestEmailViewController.h"
 #import "Logout.h"
 #import "FacebookHelper.h"
 #import "NotificationHandler.h"
 #import <DDPageControl/DDPageControl.h>
 
-@interface LoginViewController : BaseViewController <VkontakteDelegate, RequestEmailDelegate, LogoutDelegate, FacebookHelperDelegate, UIScrollViewDelegate>
+@interface LoginViewController : BaseViewController <VkontakteDelegate, LogoutDelegate, FacebookHelperDelegate, UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *vkLoginButton;
 @property (weak, nonatomic) IBOutlet UIButton *fbLoginButton;

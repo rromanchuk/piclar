@@ -33,6 +33,7 @@
 // Other
 #import "Utils.h"
 #import "AppDelegate.h"
+#import <ViewDeck/IIViewDeckController.h>
 
 // Categories
 #import "NSDate+Formatting.h"
@@ -148,7 +149,7 @@
     UIBarButtonItem *checkinButton = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixed.width = 5;
-    UIImage *profileImage = [UIImage imageNamed:@"profile.png"];
+    UIImage *profileImage = [UIImage imageNamed:@"sidebar_icon"];
     UIBarButtonItem *profileButton = [UIBarButtonItem barItemWithImage:profileImage target:self action:@selector(didSelectSettings:)];
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, profileButton, nil];
 
@@ -157,6 +158,10 @@
     
     self.footerView = [[LoadMoreFooter alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height - 60, self.tableView.frame.size.width, 60)];
     [ODRefreshControl setupRefreshForTableViewController:self withRefreshTarget:self action:@selector(fetchResults:)];
+    
+    UIButton *shootButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [shootButton setImage:[UIImage imageNamed:@"shoot_button"] forState:UIControlStateNormal];
+    [self.parentViewController.view addSubview:shootButton];
     
 }
 
@@ -219,19 +224,10 @@
     FeedCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     
-    cell.titleLabel.backgroundColor = [UIColor backgroundColor];
-    cell.reviewLabel.backgroundColor = [UIColor backgroundColor];
-    cell.dateLabel.backgroundColor = [UIColor backgroundColor];
-    cell.commentButton.backgroundColor = [UIColor backgroundColor];
-    cell.likeButton.backgroundColor = [UIColor backgroundColor];
-    cell.star1.backgroundColor = cell.star2.backgroundColor = cell.star3.backgroundColor = cell.star4.backgroundColor = cell.star5.backgroundColor = [UIColor backgroundColor];
-    cell.placeTypeImage.backgroundColor = [UIColor backgroundColor];
+       
     
     if (cell == nil) {
         cell = [[FeedCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell.titleLabel.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"bg.png"]];
-        cell.reviewLabel.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"bg.png"]];
-        cell.dateLabel.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"bg.png"]];
         
     } else {
         [cell.checkinPhoto.activityIndicator startAnimating];
@@ -242,13 +238,8 @@
         [cell.profileImage addGestureRecognizer:tapProfile];
     }
     
-    if ([cell.titleLabel.gestureRecognizers count] == 0) {
-        UITapGestureRecognizer *tapTitle = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapTitle:)];
-        [cell.titleLabel addGestureRecognizer:tapTitle];
-    }
-    
+       
     cell.profileImage.tag = indexPath.row;
-    cell.titleLabel.tag = indexPath.row;
     cell.checkinPhoto.tag = indexPath.row;
 
     
@@ -259,53 +250,17 @@
     
     // Profile image
     [cell.profileImage setProfileImageForUser:feedItem.user];
-    // Set type category image
-    cell.placeTypeImage.image = [Utils getPlaceTypeImageForFeedWithTypeId:[feedItem.place.typeId integerValue]];
-    // Set timestamp
-    cell.dateLabel.text = [feedItem.createdAt distanceOfTimeInWords];
-    // Set review
-    cell.reviewLabel.text = feedItem.review;
     // Set counters
     if ([feedItem.meLiked boolValue]) {
-        cell.likeButton.selected = YES;
+        //cell.likeButton.selected = YES;
     } else {
-        cell.likeButton.selected = NO;
+        //cell.likeButton.selected = NO;
     }
     
-    [cell.likeButton setTitle:[feedItem.numberOfLikes stringValue] forState:UIControlStateNormal];
-    [cell.likeButton setTitle:[feedItem.numberOfLikes stringValue] forState:UIControlStateSelected];
-    [cell.likeButton setTitle:[feedItem.numberOfLikes stringValue] forState:UIControlStateHighlighted];
-    
-    [cell.commentButton setTitle:[NSString stringWithFormat:@"%u", [feedItem.comments count]] forState:UIControlStateNormal];
-    [cell.commentButton setTitle:[NSString stringWithFormat:@"%u", [feedItem.comments count]] forState:UIControlStateHighlighted];
-    [cell.commentButton setTitle:[NSString stringWithFormat:@"%u", [feedItem.comments count]] forState:UIControlStateSelected];
-    
-    // Set title attributed label
-    NSString *text;
-    text = [NSString stringWithFormat:@"%@ %@ %@", feedItem.user.fullName, NSLocalizedString(@"WAS_AT", nil), feedItem.place.title];
-    cell.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:11];
 
-    cell.titleLabel.numberOfLines = 2;
-    cell.titleLabel.textColor = [UIColor defaultFontColor];
-    if (feedItem.user.fullName && feedItem.place.title) {
-        
-        [cell.titleLabel setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
-            
-            NSRange boldNameRange = [[mutableAttributedString string] rangeOfString:feedItem.user.fullName options:NSCaseInsensitiveSearch];
-            NSRange boldPlaceRange = [[mutableAttributedString string] rangeOfString:feedItem.place.title options:NSCaseInsensitiveSearch];
-            
-            UIFont *boldSystemFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:11.0];
-            CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
-            
-            [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldNameRange];
-            [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldPlaceRange];
-            CFRelease(font);
-            
-            return mutableAttributedString;
-        }];
-
-    }
-    
+    cell.commentsLabel.text = [NSString stringWithFormat:@"%u", [feedItem.comments count]];
+    cell.likesLabel.text = [feedItem.numberOfLikes stringValue];
+       
     return cell;
 }
 
@@ -497,7 +452,8 @@
 }
 
 - (IBAction)didSelectSettings:(id)sender {
-    [self performSegueWithIdentifier:@"UserShow" sender:self.currentUser];
+    [self.viewDeckController toggleLeftViewAnimated:YES];
+    //[self performSegueWithIdentifier:@"UserShow" sender:self.currentUser];
 }
 
 - (IBAction)didCheckIn:(id)sender {

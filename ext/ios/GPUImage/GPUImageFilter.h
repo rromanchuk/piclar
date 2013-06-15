@@ -4,6 +4,10 @@
 #define STRINGIZE2(x) STRINGIZE(x)
 #define SHADER_STRING(text) @ STRINGIZE2(text)
 
+#define GPUImageHashIdentifier #
+#define GPUImageWrappedLabel(x) x
+#define GPUImageEscapedHashIdentifier(a) GPUImageWrappedLabel(GPUImageHashIdentifier)a
+
 extern NSString *const kGPUImageVertexShaderString;
 extern NSString *const kGPUImagePassthroughFragmentShaderString;
 
@@ -53,17 +57,26 @@ typedef struct GPUMatrix3x3 GPUMatrix3x3;
     GLfloat backgroundColorRed, backgroundColorGreen, backgroundColorBlue, backgroundColorAlpha;
     
     BOOL preparedToCaptureImage;
-    
+
+    // Texture caches are an iOS-specific capability
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     CVOpenGLESTextureCacheRef filterTextureCache;
     CVPixelBufferRef renderTarget;
     CVOpenGLESTextureRef renderTexture;
+#else
+#endif
     
     CGSize currentFilterSize;
     GPUImageRotationMode inputRotation;
+    
+    BOOL currentlyReceivingMonochromeInput;
+    
+    NSMutableDictionary *uniformStateRestorationBlocks;
 }
 
 @property(readonly) CVPixelBufferRef renderTarget;
 @property(readwrite, nonatomic) BOOL preventRendering;
+@property(readwrite, nonatomic) BOOL currentlyReceivingMonochromeInput;
 
 /// @name Initialization and teardown
 
@@ -111,7 +124,6 @@ typedef struct GPUMatrix3x3 GPUMatrix3x3;
 /// @name Rendering
 + (const GLfloat *)textureCoordinatesForRotation:(GPUImageRotationMode)rotationMode;
 - (void)renderToTextureWithVertices:(const GLfloat *)vertices textureCoordinates:(const GLfloat *)textureCoordinates sourceTexture:(GLuint)sourceTexture;
-- (void)setUniformsForProgramAtIndex:(NSUInteger)programIndex;
 - (void)informTargetsAboutNewFrameAtTime:(CMTime)frameTime;
 - (CGSize)outputFrameSize;
 
@@ -134,5 +146,8 @@ typedef struct GPUMatrix3x3 GPUMatrix3x3;
 - (void)setVec4:(GPUVector4)vectorValue forUniform:(GLint)uniform program:(GLProgram *)shaderProgram;
 - (void)setFloatArray:(GLfloat *)arrayValue length:(GLsizei)arrayLength forUniform:(GLint)uniform program:(GLProgram *)shaderProgram;
 - (void)setInteger:(GLint)intValue forUniform:(GLint)uniform program:(GLProgram *)shaderProgram;
+
+- (void)setAndExecuteUniformStateCallbackAtIndex:(GLint)uniform forProgram:(GLProgram *)shaderProgram toBlock:(dispatch_block_t)uniformStateBlock;
+- (void)setUniformsForProgramAtIndex:(NSUInteger)programIndex;
 
 @end

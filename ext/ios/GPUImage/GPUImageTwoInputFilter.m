@@ -15,7 +15,7 @@ NSString *const kGPUImageTwoInputTextureVertexShaderString = SHADER_STRING
      textureCoordinate = inputTextureCoordinate.xy;
      textureCoordinate2 = inputTextureCoordinate2.xy;
  }
- );
+);
 
 
 @implementation GPUImageTwoInputFilter
@@ -55,7 +55,7 @@ NSString *const kGPUImageTwoInputTextureVertexShaderString = SHADER_STRING
     secondFrameTime = kCMTimeInvalid;
         
     runSynchronouslyOnVideoProcessingQueue(^{
-        [GPUImageOpenGLESContext useImageProcessingContext];
+        [GPUImageContext useImageProcessingContext];
         filterSecondTextureCoordinateAttribute = [filterProgram attributeIndex:@"inputTextureCoordinate2"];
         
         filterInputTextureUniform2 = [filterProgram uniformIndex:@"inputImageTexture2"]; // This does assume a name of "inputImageTexture2" for second input texture in the fragment shader
@@ -91,11 +91,10 @@ NSString *const kGPUImageTwoInputTextureVertexShaderString = SHADER_STRING
         return;
     }
     
-    [GPUImageOpenGLESContext setActiveShaderProgram:filterProgram];
-    [self setUniformsForProgramAtIndex:0];
-
+    [GPUImageContext setActiveShaderProgram:filterProgram];
     [self setFilterFBO];
-    
+    [self setUniformsForProgramAtIndex:0];
+        
     glClearColor(backgroundColorRed, backgroundColorGreen, backgroundColorBlue, backgroundColorAlpha);
     glClear(GL_COLOR_BUFFER_BIT);
     
@@ -250,7 +249,7 @@ NSString *const kGPUImageTwoInputTextureVertexShaderString = SHADER_STRING
     // || (hasReceivedFirstFrame && secondFrameCheckDisabled) || (hasReceivedSecondFrame && firstFrameCheckDisabled)
     if ((hasReceivedFirstFrame && hasReceivedSecondFrame) || updatedMovieFrameOppositeStillImage)
     {
-        [super newFrameReadyAtTime:frameTime atIndex:0];
+        [super newFrameReadyAtTime:firstFrameTime atIndex:0]; // Bugfix when trying to record: always use time from first input
         hasReceivedFirstFrame = NO;
         hasReceivedSecondFrame = NO;
     }

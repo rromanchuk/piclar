@@ -6,11 +6,10 @@
 //
 //
 
-#import <UIKit/UIKit.h>
 #import "HPGrowingTextView.h"
 #import "FeedItem.h"
 #import "Notification.h"
-#import "PhotoNewViewController.h"
+#import "CreatePhotoViewController.h"
 #import "NewCommentCell.h"
 #import "TTTAttributedLabel.h"
 #import "BaseViewController.h"

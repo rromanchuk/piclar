@@ -12,10 +12,12 @@ NSString *const kGPUImageVertexShaderString = SHADER_STRING
  
  void main()
  {
-	gl_Position = position;
-	textureCoordinate = inputTextureCoordinate.xy;
+     gl_Position = position;
+     textureCoordinate = inputTextureCoordinate.xy;
  }
-);
+ );
+
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 
 NSString *const kGPUImagePassthroughFragmentShaderString = SHADER_STRING
 (
@@ -29,6 +31,22 @@ NSString *const kGPUImagePassthroughFragmentShaderString = SHADER_STRING
  }
 );
 
+#else
+
+NSString *const kGPUImagePassthroughFragmentShaderString = SHADER_STRING
+(
+ varying vec2 textureCoordinate;
+ 
+ uniform sampler2D inputImageTexture;
+ 
+ void main()
+ {
+     gl_FragColor = texture2D(inputImageTexture, textureCoordinate);
+ }
+);
+#endif
+
+
 void dataProviderReleaseCallback (void *info, const void *data, size_t size);
 void dataProviderUnlockCallback (void *info, const void *data, size_t size);
 
@@ -36,6 +54,7 @@ void dataProviderUnlockCallback (void *info, const void *data, size_t size);
 
 @synthesize renderTarget;
 @synthesize preventRendering = _preventRendering;
+@synthesize currentlyReceivingMonochromeInput;
 
 #pragma mark -
 #pragma mark Initialization and teardown
@@ -47,8 +66,10 @@ void dataProviderUnlockCallback (void *info, const void *data, size_t size);
 		return nil;
     }
 
+    uniformStateRestorationBlocks = [NSMutableDictionary dictionaryWithCapacity:10];
     preparedToCaptureImage = NO;
     _preventRendering = NO;
+    currentlyReceivingMonochromeInput = NO;
     inputRotation = kGPUImageNoRotation;
     backgroundColorRed = 0.0;
     backgroundColorGreen = 0.0;
@@ -56,9 +77,9 @@ void dataProviderUnlockCallback (void *info, const void *data, size_t size);
     backgroundColorAlpha = 0.0;
     
     runSynchronouslyOnVideoProcessingQueue(^{
-        [GPUImageOpenGLESContext useImageProcessingContext];
+        [GPUImageContext useImageProcessingContext];
 
-        filterProgram = [[GPUImageOpenGLESContext sharedImageProcessingOpenGLESContext] programForVertexShaderString:vertexShaderString fragmentShaderString:fragmentShaderString];
+        filterProgram = [[GPUImageContext sharedImageProcessingContext] programForVertexShaderString:vertexShaderString fragmentShaderString:fragmentShaderString];
         
         if (!filterProgram.initialized)
         {
@@ -81,7 +102,7 @@ void dataProviderUnlockCallback (void *info, const void *data, size_t size);
         filterTextureCoordinateAttribute = [filterProgram attributeIndex:@"inputTextureCoordinate"];
         filterInputTextureUniform = [filterProgram uniformIndex:@"inputImageTexture"]; // This does assume a name of "inputImageTexture" for the fragment shader
         
-        [GPUImageOpenGLESContext setActiveShaderProgram:filterProgram];
+        [GPUImageContext setActiveShaderProgram:filterProgram];
         
         glEnableVertexAttribArray(filterPositionAttribute);
         glEnableVertexAttribArray(filterTextureCoordinateAttribute);    
@@ -154,7 +175,9 @@ void dataProviderUnlockCallback (void *info, const void *data, size_t size)
     GPUImageFilter *filter = (__bridge_transfer GPUImageFilter*)info;
     
     CVPixelBufferUnlockBaseAddress([filter renderTarget], 0);
-    CFRelease([filter renderTarget]);
+    if ([filter renderTarget]) {
+        CFRelease([filter renderTarget]);
+    }
 
     [filter destroyFilterFBO];
 
@@ -166,7 +189,7 @@ void dataProviderUnlockCallback (void *info, const void *data, size_t size)
     __block CGImageRef cgImageFromBytes;
 
     runSynchronouslyOnVideoProcessingQueue(^{
-        [GPUImageOpenGLESContext useImageProcessingContext];
+        [GPUImageContext useImageProcessingContext];
         
         CGSize currentFBOSize = [self sizeOfFBO];
         NSUInteger totalBytesForImage = (int)currentFBOSize.width * (int)currentFBOSize.height * 4;
@@ -177,7 +200,7 @@ void dataProviderUnlockCallback (void *info, const void *data, size_t size)
         GLubyte *rawImagePixels;
         
         CGDataProviderRef dataProvider;
-        if ([GPUImageOpenGLESContext supportsFastTextureUpload] && preparedToCaptureImage)
+        if ([GPUImageContext supportsFastTextureUpload] && preparedToCaptureImage)
         {
             //        glFlush();
             glFinish();
@@ -198,7 +221,7 @@ void dataProviderUnlockCallback (void *info, const void *data, size_t size)
         
         CGColorSpaceRef defaultRGBColorSpace = CGColorSpaceCreateDeviceRGB();
         
-        if ([GPUImageOpenGLESContext supportsFastTextureUpload] && preparedToCaptureImage)
+        if ([GPUImageContext supportsFastTextureUpload] && preparedToCaptureImage)
         {
             cgImageFromBytes = CGImageCreate((int)currentFBOSize.width, (int)currentFBOSize.height, 8, 32, CVPixelBufferGetBytesPerRow(renderTarget), defaultRGBColorSpace, kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst, dataProvider, NULL, NO, kCGRenderingIntentDefault);
         }
@@ -213,15 +236,6 @@ void dataProviderUnlockCallback (void *info, const void *data, size_t size)
     });
 
     return cgImageFromBytes;
-}
-
-- (UIImage *)imageFromCurrentlyProcessedOutputWithOrientation:(UIImageOrientation)imageOrientation;
-{
-    CGImageRef cgImageFromBytes = [self newCGImageFromCurrentlyProcessedOutputWithOrientation:imageOrientation];
-    UIImage *finalImage = [UIImage imageWithCGImage:cgImageFromBytes scale:1.0 orientation:imageOrientation];
-    CGImageRelease(cgImageFromBytes);
-
-    return finalImage;
 }
 
 - (CGImageRef)newCGImageByFilteringCGImage:(CGImageRef)imageToFilter
@@ -244,19 +258,6 @@ void dataProviderUnlockCallback (void *info, const void *data, size_t size)
     return processedImage;
 }
 
-- (CGImageRef)newCGImageByFilteringImage:(UIImage *)imageToFilter
-{
-    return [self newCGImageByFilteringCGImage:[imageToFilter CGImage] orientation:[imageToFilter imageOrientation]];
-}
-
-- (UIImage *)imageByFilteringImage:(UIImage *)imageToFilter;
-{
-    CGImageRef image = [self newCGImageByFilteringCGImage:[imageToFilter CGImage] orientation:[imageToFilter imageOrientation]];
-    UIImage *processedImage = [UIImage imageWithCGImage:image scale:[imageToFilter scale] orientation:[imageToFilter imageOrientation]];
-    CGImageRelease(image);
-    return processedImage;
-}
-
 #pragma mark -
 #pragma mark Managing the display FBOs
 
@@ -276,18 +277,19 @@ void dataProviderUnlockCallback (void *info, const void *data, size_t size)
 - (void)createFilterFBOofSize:(CGSize)currentFBOSize;
 {
     runSynchronouslyOnVideoProcessingQueue(^{
-        [GPUImageOpenGLESContext useImageProcessingContext];
+        [GPUImageContext useImageProcessingContext];
         glActiveTexture(GL_TEXTURE1);
         
         glGenFramebuffers(1, &filterFramebuffer);
         glBindFramebuffer(GL_FRAMEBUFFER, filterFramebuffer);
         
-        if ([GPUImageOpenGLESContext supportsFastTextureUpload] && preparedToCaptureImage)
+        if ([GPUImageContext supportsFastTextureUpload] && preparedToCaptureImage)
         {
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 #if defined(__IPHONE_6_0)
-            CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, [[GPUImageOpenGLESContext sharedImageProcessingOpenGLESContext] context], NULL, &filterTextureCache);
+            CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, [[GPUImageContext sharedImageProcessingContext] context], NULL, &filterTextureCache);
 #else
-            CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, (__bridge void *)[[GPUImageOpenGLESContext sharedImageProcessingOpenGLESContext] context], NULL, &filterTextureCache);
+            CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, (__bridge void *)[[GPUImageContext sharedImageProcessingContext] context], NULL, &filterTextureCache);
 #endif
             
             if (err)
@@ -337,15 +339,26 @@ void dataProviderUnlockCallback (void *info, const void *data, size_t size)
             glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, CVOpenGLESTextureGetName(renderTexture), 0);
             
             [self notifyTargetsAboutNewOutputTexture];
+#endif
         }
         else
         {
             [self initializeOutputTextureIfNeeded];
             
             glBindTexture(GL_TEXTURE_2D, outputTexture);
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (int)currentFBOSize.width, (int)currentFBOSize.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
-            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, outputTexture, 0);
             
+//            if ([self providesMonochromeOutput] && [GPUImageContext deviceSupportsRedTextures])
+//            {
+//                glTexImage2D(GL_TEXTURE_2D, 0, GL_RG_EXT, (int)currentFBOSize.width, (int)currentFBOSize.height, 0, GL_RG_EXT, GL_UNSIGNED_BYTE, 0);
+//            }
+//            else
+//            {
+                glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (int)currentFBOSize.width, (int)currentFBOSize.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
+//            }
+            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, outputTexture, 0);
+//            glBindFramebuffer(GL_FRAMEBUFFER, filterFramebuffer);
+//            GLenum att = GL_COLOR_ATTACHMENT0;
+//            glDrawBuffers(1, &att);
             [self notifyTargetsAboutNewOutputTexture];
         }
         
@@ -363,11 +376,12 @@ void dataProviderUnlockCallback (void *info, const void *data, size_t size)
     if (filterFramebuffer)
 	{
         runSynchronouslyOnVideoProcessingQueue(^{
-            [GPUImageOpenGLESContext useImageProcessingContext];
+            [GPUImageContext useImageProcessingContext];
 
             glDeleteFramebuffers(1, &filterFramebuffer);
             filterFramebuffer = 0;
-            
+
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
             if (filterTextureCache != NULL)
             {
                 CFRelease(renderTarget);
@@ -383,6 +397,7 @@ void dataProviderUnlockCallback (void *info, const void *data, size_t size)
                 CFRelease(filterTextureCache);
                 filterTextureCache = NULL;
             }
+#endif
         });
 	}
 }
@@ -490,9 +505,9 @@ void dataProviderUnlockCallback (void *info, const void *data, size_t size)
         return;
     }
     
-    [GPUImageOpenGLESContext setActiveShaderProgram:filterProgram];
-    [self setUniformsForProgramAtIndex:0];
+    [GPUImageContext setActiveShaderProgram:filterProgram];
     [self setFilterFBO];
+    [self setUniformsForProgramAtIndex:0];
     
     glClearColor(backgroundColorRed, backgroundColorGreen, backgroundColorBlue, backgroundColorAlpha);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -506,11 +521,6 @@ void dataProviderUnlockCallback (void *info, const void *data, size_t size)
 	glVertexAttribPointer(filterTextureCoordinateAttribute, 2, GL_FLOAT, 0, 0, textureCoordinates);
     
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-}
-
-- (void)setUniformsForProgramAtIndex:(NSUInteger)programIndex;
-{
-    
 }
 
 - (void)informTargetsAboutNewFrameAtTime:(CMTime)frameTime;
@@ -529,7 +539,7 @@ void dataProviderUnlockCallback (void *info, const void *data, size_t size)
             NSInteger indexOfObject = [targets indexOfObject:currentTarget];
             NSInteger textureIndex = [[targetTextureIndices objectAtIndex:indexOfObject] integerValue];
             
-            if ([GPUImageOpenGLESContext supportsFastTextureUpload] && preparedToCaptureImage)
+            if ([GPUImageContext supportsFastTextureUpload] && preparedToCaptureImage)
             {
                 [self setInputTextureForTarget:currentTarget atIndex:textureIndex];
             }
@@ -554,12 +564,12 @@ void dataProviderUnlockCallback (void *info, const void *data, size_t size)
 
     preparedToCaptureImage = YES;
     
-    if ([GPUImageOpenGLESContext supportsFastTextureUpload])
+    if ([GPUImageContext supportsFastTextureUpload])
     {
         if (outputTexture)
         {
             runSynchronouslyOnVideoProcessingQueue(^{
-                [GPUImageOpenGLESContext useImageProcessingContext];
+                [GPUImageContext useImageProcessingContext];
                 
                 glDeleteTextures(1, &outputTexture);
                 outputTexture = 0;
@@ -625,86 +635,118 @@ void dataProviderUnlockCallback (void *info, const void *data, size_t size)
 - (void)setMatrix3f:(GPUMatrix3x3)matrix forUniform:(GLint)uniform program:(GLProgram *)shaderProgram;
 {
     runAsynchronouslyOnVideoProcessingQueue(^{
-        [GPUImageOpenGLESContext setActiveShaderProgram:shaderProgram];
-        glUniformMatrix3fv(uniform, 1, GL_FALSE, (GLfloat *)&matrix);
+        [GPUImageContext setActiveShaderProgram:shaderProgram];
+        [self setAndExecuteUniformStateCallbackAtIndex:uniform forProgram:shaderProgram toBlock:^{
+            glUniformMatrix3fv(uniform, 1, GL_FALSE, (GLfloat *)&matrix);
+        }];
     });
 }
 
 - (void)setMatrix4f:(GPUMatrix4x4)matrix forUniform:(GLint)uniform program:(GLProgram *)shaderProgram;
 {
     runAsynchronouslyOnVideoProcessingQueue(^{
-        [GPUImageOpenGLESContext setActiveShaderProgram:shaderProgram];
-        glUniformMatrix4fv(uniform, 1, GL_FALSE, (GLfloat *)&matrix);
+        [GPUImageContext setActiveShaderProgram:shaderProgram];
+        [self setAndExecuteUniformStateCallbackAtIndex:uniform forProgram:shaderProgram toBlock:^{
+            glUniformMatrix4fv(uniform, 1, GL_FALSE, (GLfloat *)&matrix);
+        }];
     });
 }
 
 - (void)setFloat:(GLfloat)floatValue forUniform:(GLint)uniform program:(GLProgram *)shaderProgram;
 {
     runAsynchronouslyOnVideoProcessingQueue(^{
-        [GPUImageOpenGLESContext setActiveShaderProgram:shaderProgram];
-        glUniform1f(uniform, floatValue);
+        [GPUImageContext setActiveShaderProgram:shaderProgram];
+        [self setAndExecuteUniformStateCallbackAtIndex:uniform forProgram:shaderProgram toBlock:^{
+            glUniform1f(uniform, floatValue);
+        }];
     });
 }
 
 - (void)setPoint:(CGPoint)pointValue forUniform:(GLint)uniform program:(GLProgram *)shaderProgram;
 {
     runAsynchronouslyOnVideoProcessingQueue(^{
-        [GPUImageOpenGLESContext setActiveShaderProgram:shaderProgram];
-
-        GLfloat positionArray[2];
-        positionArray[0] = pointValue.x;
-        positionArray[1] = pointValue.y;
-        
-        glUniform2fv(uniform, 1, positionArray);
+        [GPUImageContext setActiveShaderProgram:shaderProgram];
+        [self setAndExecuteUniformStateCallbackAtIndex:uniform forProgram:shaderProgram toBlock:^{
+            GLfloat positionArray[2];
+            positionArray[0] = pointValue.x;
+            positionArray[1] = pointValue.y;
+            
+            glUniform2fv(uniform, 1, positionArray);
+        }];
     });
 }
 
 - (void)setSize:(CGSize)sizeValue forUniform:(GLint)uniform program:(GLProgram *)shaderProgram;
 {
     runAsynchronouslyOnVideoProcessingQueue(^{
-        [GPUImageOpenGLESContext setActiveShaderProgram:shaderProgram];
+        [GPUImageContext setActiveShaderProgram:shaderProgram];
         
-        GLfloat sizeArray[2];
-        sizeArray[0] = sizeValue.width;
-        sizeArray[1] = sizeValue.height;
-        
-        glUniform2fv(uniform, 1, sizeArray);
+        [self setAndExecuteUniformStateCallbackAtIndex:uniform forProgram:shaderProgram toBlock:^{
+            GLfloat sizeArray[2];
+            sizeArray[0] = sizeValue.width;
+            sizeArray[1] = sizeValue.height;
+            
+            glUniform2fv(uniform, 1, sizeArray);
+        }];
     });
 }
 
 - (void)setVec3:(GPUVector3)vectorValue forUniform:(GLint)uniform program:(GLProgram *)shaderProgram;
 {
     runAsynchronouslyOnVideoProcessingQueue(^{
-        [GPUImageOpenGLESContext setActiveShaderProgram:shaderProgram];
+        [GPUImageContext setActiveShaderProgram:shaderProgram];
 
-        glUniform3fv(uniform, 1, (GLfloat *)&vectorValue);
+        [self setAndExecuteUniformStateCallbackAtIndex:uniform forProgram:shaderProgram toBlock:^{
+            glUniform3fv(uniform, 1, (GLfloat *)&vectorValue);
+        }];
     });
 }
 
 - (void)setVec4:(GPUVector4)vectorValue forUniform:(GLint)uniform program:(GLProgram *)shaderProgram;
 {
     runAsynchronouslyOnVideoProcessingQueue(^{
-        [GPUImageOpenGLESContext setActiveShaderProgram:shaderProgram];
+        [GPUImageContext setActiveShaderProgram:shaderProgram];
         
-        glUniform4fv(uniform, 1, (GLfloat *)&vectorValue);
+        [self setAndExecuteUniformStateCallbackAtIndex:uniform forProgram:shaderProgram toBlock:^{
+            glUniform4fv(uniform, 1, (GLfloat *)&vectorValue);
+        }];
     });
 }
 
 - (void)setFloatArray:(GLfloat *)arrayValue length:(GLsizei)arrayLength forUniform:(GLint)uniform program:(GLProgram *)shaderProgram;
 {
     runAsynchronouslyOnVideoProcessingQueue(^{
-        [GPUImageOpenGLESContext setActiveShaderProgram:shaderProgram];
+        [GPUImageContext setActiveShaderProgram:shaderProgram];
         
-        glUniform1fv(uniform, arrayLength, arrayValue);
+        [self setAndExecuteUniformStateCallbackAtIndex:uniform forProgram:shaderProgram toBlock:^{
+            glUniform1fv(uniform, arrayLength, arrayValue);
+        }];
     });
 }
 
 - (void)setInteger:(GLint)intValue forUniform:(GLint)uniform program:(GLProgram *)shaderProgram;
 {
     runAsynchronouslyOnVideoProcessingQueue(^{
-        [GPUImageOpenGLESContext setActiveShaderProgram:shaderProgram];
-        glUniform1i(uniform, intValue);
+        [GPUImageContext setActiveShaderProgram:shaderProgram];
+
+        [self setAndExecuteUniformStateCallbackAtIndex:uniform forProgram:shaderProgram toBlock:^{
+            glUniform1i(uniform, intValue);
+        }];
     });
+}
+
+- (void)setAndExecuteUniformStateCallbackAtIndex:(GLint)uniform forProgram:(GLProgram *)shaderProgram toBlock:(dispatch_block_t)uniformStateBlock;
+{
+    [uniformStateRestorationBlocks setObject:[uniformStateBlock copy] forKey:[NSNumber numberWithInt:uniform]];
+    uniformStateBlock();
+}
+
+- (void)setUniformsForProgramAtIndex:(NSUInteger)programIndex;
+{
+    [uniformStateRestorationBlocks enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop){
+        dispatch_block_t currentBlock = obj;
+        currentBlock();
+    }];
 }
 
 #pragma mark -
@@ -899,14 +941,18 @@ void dataProviderUnlockCallback (void *info, const void *data, size_t size)
 
 - (void)deleteOutputTexture;
 {
-    if (!([GPUImageOpenGLESContext supportsFastTextureUpload] && preparedToCaptureImage))
-    {
-        if (outputTexture)
+    runSynchronouslyOnVideoProcessingQueue(^{
+        [GPUImageContext useImageProcessingContext];
+
+        if (!([GPUImageContext supportsFastTextureUpload] && preparedToCaptureImage))
         {
-            glDeleteTextures(1, &outputTexture);
-            outputTexture = 0;
+            if (outputTexture)
+            {
+                glDeleteTextures(1, &outputTexture);
+                outputTexture = 0;
+            }
         }
-    }
+    });
 }
 
 - (CGSize)maximumOutputSize;
@@ -959,6 +1005,11 @@ void dataProviderUnlockCallback (void *info, const void *data, size_t size)
             [currentTarget conserveMemoryForNextFrame];
         }
     }
+}
+
+- (BOOL)wantsMonochromeInput;
+{
+    return NO;
 }
 
 #pragma mark -
