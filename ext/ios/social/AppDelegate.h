@@ -6,16 +6,18 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "Location.h"
 #import "ApplicationLifecycleDelegate.h"
 #import "UserSettingsController.h"
 #import "NotificationHandler.h"
+#import "User+Rest.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, LocationDelegate, LogoutDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) User *currentUser;
+
 @property (readonly, strong, nonatomic) NSManagedObjectContext *privateWriterContext;
 
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;

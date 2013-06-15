@@ -1,7 +1,6 @@
 
 
 #import "AppDelegate.h"
-#import "User+Rest.h"
 #import "LoginViewController.h"
 #import "RestCheckin.h"
 #import "RestClient.h"
@@ -17,6 +16,7 @@
 #import "ThreadedUpdates.h"
 #import "FoursquareHelper.h"
 #import "CheckinViewController.h"
+#import "InitialViewController.h"
 
 @implementation AppDelegate
 
@@ -84,7 +84,6 @@
     [self setupTheme];
     // Do not try to load the managed object context directly from the application delegate. It should be 
     // handed off to the next controllre during prepareForSegue
-    ((LoginViewController *) self.window.rootViewController).managedObjectContext = self.managedObjectContext;
     
     [self setupSettingsFromServer];
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
@@ -130,21 +129,20 @@
     
     // Reset badge count
     [[UAPush shared] resetBadge];
-    LoginViewController *lc = ((LoginViewController *) self.window.rootViewController);
     DLog(@"current user token %@",[RestUser currentUserToken] );
     DLog(@"current user id %@", [RestUser currentUserId] );
     
     if([RestUser currentUserId]) {
-        lc.currentUser = [User userWithExternalId:[RestUser currentUserId] inManagedObjectContext:self.managedObjectContext];
-        if (!lc.currentUser) {
+        self.currentUser = [User userWithExternalId:[RestUser currentUserId] inManagedObjectContext:self.managedObjectContext];
+        if (!self.currentUser) {
             DLog(@"UID was saved, but not able to find user in coredata, this is bad. Forcing logout...");
             DLog(@"This usually happens ");
-            [lc didLogout];
+            //[lc didLogout];
         }
-        [NotificationHandler shared].currentUser = lc.currentUser;
+        [NotificationHandler shared].currentUser = self.currentUser;
         [NotificationHandler shared].managedObjectContext = self.managedObjectContext;
-        DLog(@"Got user %@", lc.currentUser);
-        DLog(@"User status %d", lc.currentUser.registrationStatus.intValue);
+        DLog(@"Got user %@", self.currentUser);
+        DLog(@"User status %d", self.currentUser.registrationStatus.intValue);
     }
     
     // Since the user is already logged in, this fires a call back to the server to verify that the user's token is still valid
@@ -154,20 +152,20 @@
         // Verify the user's access token is still valid
         if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
             DLog(@"FACEBOOK SESSION DETECTED");
-            [lc fbLoginPressed:self];
+            //[lc fbLoginPressed:self];
         } else {
             [self.managedObjectContext performBlock:^{
                 [RestUser reload:^(RestUser *restUser) {
                     
-                    lc.currentUser = [User findOrCreateUserWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
-                    [lc.currentUser updateUserSettings];
+                    self.currentUser = [User findOrCreateUserWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
+                    [self.currentUser updateUserSettings];
                                         
-                    [[ThreadedUpdates shared] loadNotificationsPassivelyForUser:lc.currentUser];
+                    [[ThreadedUpdates shared] loadNotificationsPassivelyForUser:self.currentUser];
                     [[ThreadedUpdates shared] loadFeedPassively];
                 }
                 onError:^(NSError *error) {
                     if (error.code == 401)
-                        [lc didLogout];
+                        //[lc didLogout];
                     [SVProgressHUD showErrorWithStatus:error.localizedDescription];
                 }];
             }];

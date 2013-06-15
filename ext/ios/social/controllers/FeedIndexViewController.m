@@ -64,6 +64,10 @@
         self.noResultsFooterView.feedEmptyLabel.text = NSLocalizedString(@"FEED_IS_EMPTY", @"Empty feed");
         [self.noResultsFooterView.checkinButton addTarget:self action:@selector(didCheckIn:) forControlEvents:UIControlEventTouchUpInside];
         
+        
+        AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        self.managedObjectContext = sharedAppDelegate.managedObjectContext;
+        self.currentUser = sharedAppDelegate.currentUser;
     }
     return self;
 }
@@ -109,8 +113,8 @@
        
        CreatePhotoViewController *vc = (CreatePhotoViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
        vc.managedObjectContext = self.managedObjectContext;
-        vc.delegate = self;
-        vc.currentUser = self.currentUser;
+       vc.delegate = self;
+       vc.currentUser = self.currentUser;
         //[Location sharedLocation].delegate = vc;
     } else if ([[segue identifier] isEqualToString:@"Comment"]) {
         CommentCreateViewController *vc = [segue destinationViewController];

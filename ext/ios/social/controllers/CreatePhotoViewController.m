@@ -814,10 +814,10 @@ NSString * const kOstronautFrameType12 = @"frame-12";
     ALog(@"Foursquare session state changed.. delegate called");
     [RestUser updateProviderToken:foursquare.accessToken forProvider:@"fsq" uid:nil onLoad:^(RestUser *restUser) {
         [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
-        self.fsqSharebutton.selected = YES;
+        //self.fsqSharebutton.selected = YES;
     } onError:^(NSError *error) {
         ALog(@"unable to update vk token %@", error);
-        self.fsqSharebutton.selected = NO;
+        //self.fsqSharebutton.selected = NO;
     }];
 }
 
