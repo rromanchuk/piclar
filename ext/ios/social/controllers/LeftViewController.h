@@ -6,7 +6,13 @@
 //
 //
 
-#import <UIKit/UIKit.h>
+typedef enum {
+    LeftViewRowTypeFeed,
+    LeftViewRowTypeProfile,
+    LeftViewRowTypeAboutUs,
+    LeftViewRowTypeNotifications,
+    numOKPaymentCellRow
+} LeftViewRowType;
 
 @interface LeftViewController : UITableViewController
 
