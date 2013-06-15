@@ -29,10 +29,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [Config sharedConfig];
-#ifdef DEBUG
-    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
-#endif
-    
     [TestFlight takeOff:@"7919882d-ee86-4d6d-8eff-79e5907b2eb9"];
     [Flurry startSession:@"M3PMPPG8RS75H53HKQRK"];
     
