@@ -22,6 +22,7 @@
     if (self) {
         // Add any extra init code here
         ((LeftViewController *)((ApplicatonNavigationController *)self.leftController).topViewController).delegate = self;
+        self.currentUser = [User currentUser:self.managedObjectContext];
 
     }
     return self;
@@ -32,13 +33,12 @@
     ((LeftViewController *)self.leftController).delegate = self;
 }
 
-
 - (void)doesNeedSegueFor:(NSString *)identifier sender:(id)sender {
     [self.viewDeckController closeLeftViewBouncing:^(IIViewDeckController *controller) {
         //controller.centerController = [UIViewController alloc] init];
         // ...
     }];
-    [self.viewDeckController toggleLeftViewAnimated:YES];
+    //[self.viewDeckController toggleLeftViewAnimated:YES];
 
     ALog(@"did press segue for %@", identifier);
 }

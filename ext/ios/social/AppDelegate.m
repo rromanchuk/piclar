@@ -86,7 +86,10 @@
     [Crashlytics startWithAPIKey:@"cbbca2d940f872c4617ddb67cf20ec9844d036ea"];
     
     [FBSettings publishInstall:[Config sharedConfig].fbAppId];
-
+    
+    InitialViewController *vc = (InitialViewController *)self.window.rootViewController;
+    vc.managedObjectContext = self.managedObjectContext;
+    self.currentUser = [User currentUser:self.managedObjectContext];
     return YES;
 }
 							
@@ -128,18 +131,10 @@
     DLog(@"current user token %@",[RestUser currentUserToken] );
     DLog(@"current user id %@", [RestUser currentUserId] );
     
-    if([RestUser currentUserId]) {
-        self.currentUser = [User userWithExternalId:[RestUser currentUserId] inManagedObjectContext:self.managedObjectContext];
-        if (!self.currentUser) {
-            DLog(@"UID was saved, but not able to find user in coredata, this is bad. Forcing logout...");
-            DLog(@"This usually happens ");
-            //[lc didLogout];
-        }
-        [NotificationHandler shared].currentUser = self.currentUser;
-        [NotificationHandler shared].managedObjectContext = self.managedObjectContext;
-        DLog(@"Got user %@", self.currentUser);
-        DLog(@"User status %d", self.currentUser.registrationStatus.intValue);
-    }
+    [NotificationHandler shared].currentUser = self.currentUser;
+    [NotificationHandler shared].managedObjectContext = self.managedObjectContext;
+    DLog(@"Got user %@", self.currentUser);
+    DLog(@"User status %d", self.currentUser.registrationStatus.intValue);
     
     // Since the user is already logged in, this fires a call back to the server to verify that the user's token is still valid
     // It also updates the user's settings from the server. 

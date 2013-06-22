@@ -15,6 +15,7 @@
 + (User *)userWithExternalId:(NSNumber *)externalId inManagedObjectContext:(NSManagedObjectContext *)context;
 + (User *)findOrCreateUserWithRestUser:(RestUser *)user
                 inManagedObjectContext:(NSManagedObjectContext *)context;
++ (User *)currentUser:(NSManagedObjectContext *)context;
 
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject;
 

@@ -257,7 +257,7 @@ DDPageControl *pageControl;
 
 - (void)didLogIn {
     DLog(@"Everything good to go...");
-    [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - User actions
@@ -288,24 +288,24 @@ DDPageControl *pageControl;
     [[Vkontakte sharedInstance] logout];
     [RestUser resetIdentifiers];
     [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"VK_LOGIN_ERROR", @"Error when trying to authenticate vk")];
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)showVkontakteAuthController:(UIViewController *)controller
 {
-    [self presentModalViewController:controller animated:YES];
+    [self presentViewController:controller animated:YES completion:nil];
 }
 
 - (void)vkontakteAuthControllerDidCancelled
 {
     [RestUser resetIdentifiers];
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)vkontakteDidFinishLogin:(Vkontakte *)vkontakte
 {
     [Flurry logEvent:@"REGISTRATION_VK_SUCCESSFULL"];
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
     [[Vkontakte sharedInstance] getUserInfo];
     [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];
 }
@@ -313,7 +313,7 @@ DDPageControl *pageControl;
 - (void)vkontakteDidFinishLogOut:(Vkontakte *)vkontakte
 {
     DLog(@"USER DID LOGOUT");
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)vkontakteDidFinishGettinUserInfo:(NSDictionary *)info
@@ -365,7 +365,7 @@ DDPageControl *pageControl;
     [[UAPush shared] updateRegistration];
     
     [FBSession.activeSession closeAndClearTokenInformation];
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
@@ -385,7 +385,7 @@ DDPageControl *pageControl;
     self.currentUser.email = email;
     [self.currentUser pushToServer:^(RestUser *restUser) {
         DLog(@"in onload pushToServer");
-        [self dismissModalViewControllerAnimated:YES];
+        [self dismissViewControllerAnimated:YES completion:nil];
         [SVProgressHUD dismiss];
 
     } onError:^(NSError *error) {

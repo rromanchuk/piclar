@@ -10,6 +10,8 @@
 #import "User+Rest.h"
 #import "LeftViewController.h"
 @interface InitialViewController : IIViewDeckController <LeftViewDelegate>
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) User *currentUser;
 
 @end
 

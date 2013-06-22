@@ -16,6 +16,7 @@
 #import "CheckinViewController.h"
 #import "ApplicatonNavigationController.h"
 #import "CreatePhotoViewController.h"
+#import "LoginViewController.h"
 // Views
 #import "FeedCell.h"
 #import "WarningBannerView.h"
@@ -138,7 +139,10 @@
         vc.feedItem = (FeedItem*)sender;
         vc.currentUser = self.currentUser;
         vc.deletionDelegate = self;
-    }    
+    } else if ([segue.identifier isEqualToString:@"Login"]) {
+        LoginViewController *vc = (LoginViewController *)segue.destinationViewController;
+        vc.managedObjectContext = self.managedObjectContext;
+    }
 }
 
 #pragma mark controller lifecycle
@@ -167,6 +171,10 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    if (!self.currentUser) {
+        [self performSegueWithIdentifier:@"Login" sender:self];
+    }
+    
     [self setupFetchedResultsController];
     [RailsRestClient sharedClient].delegate = self;
     [self setupFooter];

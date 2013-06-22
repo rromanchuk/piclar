@@ -67,6 +67,18 @@
     return new_user;
 }
 
++ (User *)currentUser:(NSManagedObjectContext *)context {
+    NSNumber *currentId =  @([[RestUser currentUserId] integerValue]);
+    
+    if ([RestUser currentUserId]) {
+        User *user = [User userWithExternalId:currentId inManagedObjectContext:context];
+        ALog("got user %@", user);
+        return user;
+    }
+    
+    return nil;
+}
+
 
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject {
     RestUser *restUser = (RestUser *) intermediateObject; 

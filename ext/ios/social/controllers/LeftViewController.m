@@ -8,6 +8,8 @@
 
 #import "LeftViewController.h"
 #import "SettingsRowCell.h"
+#import <ViewDeck/IIViewDeckController.h>
+
 @interface LeftViewController ()
 
 @end
@@ -75,7 +77,7 @@
     ALog(@"did tap row with delegate %@", self.delegate);
     ALog(@"parent is %@", self.parentViewController);
     [self.delegate doesNeedSegueFor:@"feed" sender:self];
-    
+    [self.viewDeckController toggleLeftViewAnimated:YES];
     // Navigation logic may go here. Create and push another view controller.
     /*
      <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];

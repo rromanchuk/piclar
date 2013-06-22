@@ -6,7 +6,6 @@
 //
 //
 
-#import <UIKit/UIKit.h>
 #import "BaseView.h"
 
 @interface FeedIndexNoResults : BaseView
