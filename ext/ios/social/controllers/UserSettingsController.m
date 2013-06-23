@@ -14,7 +14,7 @@
 #import "TDSemiModal.h"
 #import "AppDelegate.h"
 #import "UAPush.h"
-
+#import "Flurry.h"
 @interface UserSettingsController ()
 @property NSString *originalText;
 @property BOOL isLoggingOut; 

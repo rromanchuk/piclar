@@ -6,7 +6,6 @@
 //
 //
 
-#import <Foundation/Foundation.h>
 #import "UAPush.h"
 #import "User.h"
 #import "RestUser.h"

@@ -11,6 +11,7 @@
 #import "LikerCell.h"
 #import "FacebookHelper.h"
 #import "ThreadedUpdates.h"
+#import "Flurry.h"
 
 @interface UsersListViewController ()
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;

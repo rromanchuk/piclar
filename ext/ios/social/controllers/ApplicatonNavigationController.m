@@ -10,6 +10,7 @@
 #import "UIBarButtonItem+Borderless.h"
 #import "CheckinViewController.h"
 #import "FeedItem+Rest.h"
+#import "Flurry.h"
 @interface ApplicatonNavigationController ()
 
 @end

@@ -24,6 +24,7 @@
 		9417B7E815D7ED1D006ACB99 /* photo-accept@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9417B7E415D7ED1D006ACB99 /* photo-accept@2x.png */; };
 		9417B7E915D7ED1D006ACB99 /* photo-reject.png in Resources */ = {isa = PBXBuildFile; fileRef = 9417B7E515D7ED1D006ACB99 /* photo-reject.png */; };
 		9417B7EA15D7ED1D006ACB99 /* photo-reject@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9417B7E615D7ED1D006ACB99 /* photo-reject@2x.png */; };
+		94191C9117770E9600C61A59 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94191C9017770E9600C61A59 /* libFlurry.a */; };
 		941AA7CB15E290CF00A55A22 /* HPGrowingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 941AA7C815E290CF00A55A22 /* HPGrowingTextView.m */; };
 		941AA7CC15E290CF00A55A22 /* HPTextViewInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = 941AA7CA15E290CF00A55A22 /* HPTextViewInternal.m */; };
 		941C29CE15ADBED400AC99C3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 941C29D015ADBED400AC99C3 /* Localizable.strings */; };
@@ -622,6 +623,7 @@
 		9417B7E415D7ED1D006ACB99 /* photo-accept@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "photo-accept@2x.png"; path = "assets/photo-accept@2x.png"; sourceTree = "<group>"; };
 		9417B7E515D7ED1D006ACB99 /* photo-reject.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "photo-reject.png"; path = "assets/photo-reject.png"; sourceTree = "<group>"; };
 		9417B7E615D7ED1D006ACB99 /* photo-reject@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "photo-reject@2x.png"; path = "assets/photo-reject@2x.png"; sourceTree = "<group>"; };
+		94191C9017770E9600C61A59 /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry.a; path = "../../../../Downloads/Flurry iPhone SDK viPhone 4.2.1/Flurry-iOS-4.2.1/Flurry/libFlurry.a"; sourceTree = "<group>"; };
 		941AA7C715E290CF00A55A22 /* HPGrowingTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HPGrowingTextView.h; path = helpers/HPGrowingTextView.h; sourceTree = "<group>"; };
 		941AA7C815E290CF00A55A22 /* HPGrowingTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HPGrowingTextView.m; path = helpers/HPGrowingTextView.m; sourceTree = "<group>"; };
 		941AA7C915E290CF00A55A22 /* HPTextViewInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HPTextViewInternal.h; path = helpers/HPTextViewInternal.h; sourceTree = "<group>"; };
@@ -1452,6 +1454,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94191C9117770E9600C61A59 /* libFlurry.a in Frameworks */,
 				FA7519CB176CD64100B84D22 /* OpenGLES.framework in Frameworks */,
 				94AC3F3F161C28D5007B7541 /* ImageIO.framework in Frameworks */,
 				949D22AB1663AEF300517611 /* libxml2.dylib in Frameworks */,
@@ -2085,6 +2088,7 @@
 		94E8898115A4442500DF21D7 = {
 			isa = PBXGroup;
 			children = (
+				94191C9017770E9600C61A59 /* libFlurry.a */,
 				949D22AA1663AEF300517611 /* libxml2.dylib */,
 				94AC3F42161C72E2007B7541 /* Default-568h@2x.png */,
 				94D1307515FDF08A00E9ECB8 /* Icon-72.png */,
@@ -3480,8 +3484,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/Flurry\"",
 					"\"$(SRCROOT)/Airship\"",
+					"\"$(SRCROOT)/../../../../Downloads/Flurry iPhone SDK viPhone 4.2.1/Flurry-iOS-4.2.1/Flurry\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -3602,8 +3606,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/Flurry\"",
 					"\"$(SRCROOT)/Airship\"",
+					"\"$(SRCROOT)/../../../../Downloads/Flurry iPhone SDK viPhone 4.2.1/Flurry-iOS-4.2.1/Flurry\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -3646,8 +3650,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/Flurry\"",
 					"\"$(SRCROOT)/Airship\"",
+					"\"$(SRCROOT)/../../../../Downloads/Flurry iPhone SDK viPhone 4.2.1/Flurry-iOS-4.2.1/Flurry\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",

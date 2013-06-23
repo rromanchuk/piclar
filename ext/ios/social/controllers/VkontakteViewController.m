@@ -15,6 +15,7 @@
  */
 
 #import "VkontakteViewController.h"
+#import "Flurry.h"
 
 @interface VkontakteViewController (Private)
 - (NSString*)stringBetweenString:(NSString*)start 

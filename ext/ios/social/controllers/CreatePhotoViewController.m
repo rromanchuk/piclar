@@ -38,6 +38,7 @@
 #import <ImageIO/CGImageDestination.h>
 
 #import "AppDelegate.h"
+#import "Flurry.h"
 
 NSString * const kOstronautFilterTypeNormal = @"Normal";
 NSString * const kOstronautFilterTypeTiltShift = @"TiltShift";
@@ -465,7 +466,7 @@ NSString * const kOstronautFrameType12 = @"frame-12";
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [self dismissModalViewControllerAnimated:YES];
     //[self setupInitialCameraState:self];
-    [Flurry logEvent:@"PHOTO_FROM_LIBRARY_CANCELED"];
+    //[Flurry logEvent:@"PHOTO_FROM_LIBRARY_CANCELED"];
 }
 
 - (IBAction)didTapPost:(id)sender {
@@ -480,7 +481,7 @@ NSString * const kOstronautFrameType12 = @"frame-12";
     [imagePicker setDelegate:self];
     imagePicker.allowsEditing = YES;
     [self presentModalViewController:imagePicker animated:YES];
-    [Flurry logEvent:@"PHOTO_FROM_LIBRARY_CLICKED"];
+    //[Flurry logEvent:@"PHOTO_FROM_LIBRARY_CLICKED"];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -763,7 +764,7 @@ NSString * const kOstronautFrameType12 = @"frame-12";
     if (self.shareVkButton.selected)  {
         ALog(@"uploading to vk");
         [platforms addObject:@"vkontakte"];
-        [Flurry logEvent:@"SHARED_ON_VKONTAKTE"];
+        //[Flurry logEvent:@"SHARED_ON_VKONTAKTE"];
         if (self.place) {
             [[Vkontakte sharedInstance] postImageToWall:imageData text:@"" link:[NSURL URLWithString:@"http://piclar.com"] lat:[self.place.lat stringValue] lng:[self.place.lon stringValue]];
         } else {
@@ -774,7 +775,7 @@ NSString * const kOstronautFrameType12 = @"frame-12";
     
     if (self.shareFbButton.selected) {
         [platforms addObject:@"facebook"];
-        [Flurry logEvent:@"SHARED_ON_FACEBOOK"];
+        //[Flurry logEvent:@"SHARED_ON_FACEBOOK"];
         [[FacebookHelper shared] uploadPhotoToFacebook:self.previewImage.image withMessage:@""];
         ALog(@"uploading to facebook");
     }
@@ -842,7 +843,7 @@ NSString * const kOstronautFrameType12 = @"frame-12";
 - (void)vkontakteDidFailedWithError:(NSError *)error
 {
     ALog(@"vk authorization failed %@", error);
-    [Flurry logError:@"VK Failure" message:@"Failure on share with vk" error:error];
+    //[Flurry logError:@"VK Failure" message:@"Failure on share with vk" error:error];
     self.shareVkButton.selected = NO;
 }
 
@@ -916,7 +917,7 @@ NSString * const kOstronautFrameType12 = @"frame-12";
 
 #pragma mark PlaceSearchDelegate methods
 - (void)didSelectNewPlace:(Place *)newPlace {
-    [Flurry logEvent:@"CHECKIN_NEW_PLACE_SELECTED"];
+    //[Flurry logEvent:@"CHECKIN_NEW_PLACE_SELECTED"];
     [Location sharedLocation].delegate = self;
     DLog(@"didSelectNewPlace");
     if (newPlace) {

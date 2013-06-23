@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import "Flurry.h"
 // Controllers
 #import "BaseNavigationViewController.h"
 #import "CommentCreateViewController.h"
@@ -201,7 +201,7 @@
         [self.commentView becomeFirstResponder];
     
     [self setupView];
-    [Flurry logEvent:@"SCREEN_COMMENT_CREATE"];
+    //[Flurry logEvent:@"SCREEN_COMMENT_CREATE"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -244,7 +244,7 @@
     if ([[segue identifier] isEqualToString:@"Checkin"]) {
         ApplicatonNavigationController *nc = (ApplicatonNavigationController *)[segue destinationViewController];
         nc.isChildNavigationalStack = YES;
-        [Flurry logAllPageViews:nc];
+        //[Flurry logAllPageViews:nc];
         CreatePhotoViewController *vc = (CreatePhotoViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.delegate = self;
@@ -423,7 +423,7 @@
     }
     
     [SVProgressHUD show];
-    [Flurry logEvent:@"COMMENT_FROM_COMMENTS_PAGE"];
+    //[Flurry logEvent:@"COMMENT_FROM_COMMENTS_PAGE"];
     [self.feedItem createComment:comment onLoad:^(RestComment *restComment) {
         Comment *comment = [Comment commentWithRestComment:restComment inManagedObjectContext:self.managedObjectContext];
         self.tableView.tableFooterView = nil;
@@ -455,7 +455,7 @@
 - (IBAction)didLike:(id)sender event:(UIEvent *)event {
     
     DLog(@"ME LIKED IS %d", [self.feedItem.meLiked integerValue]);
-    [Flurry logEvent:@"LIKE_FROM_COMMENTS"];
+    //[Flurry logEvent:@"LIKE_FROM_COMMENTS"];
 
     if ([self.feedItem.meLiked boolValue]) {
         //Update the UI now

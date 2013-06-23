@@ -18,6 +18,7 @@
 #import "ODRefreshControl.h"
 
 #import "AppDelegate.h"
+#import "Flurry.h"
 @interface NotificationIndexViewController ()
 
 @end

@@ -22,6 +22,9 @@
 
 #import "ThreadedUpdates.h"
 #import "AppDelegate.h"
+#import "Flurry.h"
+
+
 @implementation UserViewController
 {
     BOOL feedLayout;

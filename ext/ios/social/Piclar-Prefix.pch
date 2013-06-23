@@ -8,17 +8,17 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
-    #import "TestFlight.h"
-    #import "SVProgressHUD.h"
     #import "UIApplication+NetworkActivityIndicator.h"
     #import "NSObject+JTObjectMapping.h"
     #import "UIImageView+AFNetworking.h"
+    #import "SVProgressHUD.h"
+    #import "Testflight.h"
     #import "UIBarButtonItem+Borderless.h"
     #import "UIColor+Ostronaut.h"
-    #import "Flurry.h"
     #import <SystemConfiguration/SystemConfiguration.h> 
     #import "NSString+Formatting.h"
     #import "NSNull+Helper.h"
+    #import <FlurrySDK/Flurry.h>
 #endif
 
 #ifdef LOG

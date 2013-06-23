@@ -17,6 +17,7 @@
 #import "FoursquareHelper.h"
 #import "CheckinViewController.h"
 #import "InitialViewController.h"
+#import <FlurrySDK/Flurry.h>
 
 @implementation AppDelegate
 

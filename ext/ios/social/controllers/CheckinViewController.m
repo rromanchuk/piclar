@@ -33,6 +33,7 @@
 
 // Others
 #import "Utils.h"
+#import "Flurry.h"
 
 #define COMMENT_LABEL_WIDTH 253.0f
 #define REVIEW_LABEL_WIDTH 297.0f
@@ -154,7 +155,7 @@
         [self setupView];
         [self updateFeedItem];
     }
-    [Flurry logEvent:@"SCREEN_CHECKIN_SHOW"];
+    //[Flurry logEvent:@"SCREEN_CHECKIN_SHOW"];
     
 
 }
@@ -304,7 +305,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
    if ([[segue identifier] isEqualToString:@"ShowLikers"]) {
-       [Flurry logEvent:@"SCREEN_LIKES_LIST"];
+       //[Flurry logEvent:@"SCREEN_LIKES_LIST"];
         UsersListViewController *vc = [segue destinationViewController];
         vc.usersList = self.feedItem.liked;
         vc.includeFindFriends = NO;
@@ -483,7 +484,7 @@
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"COMMENT_REQUIRED", @"User pressed submit with no comment given")];
         return;
     }
-    [Flurry logEvent:@"COMMENT_FROM_CHECKIN_PAGE"];
+    //[Flurry logEvent:@"COMMENT_FROM_CHECKIN_PAGE"];
     [SVProgressHUD show];
     [self.feedItem createComment:comment onLoad:^(RestComment *restComment) {
         Comment *comment = [Comment commentWithRestComment:restComment inManagedObjectContext:self.managedObjectContext];
@@ -516,7 +517,7 @@
 - (IBAction)didLike:(id)sender event:(UIEvent *)event {
 
     DLog(@"ME LIKED IS %d", [self.feedItem.meLiked integerValue]);
-    [Flurry logEvent:@"LIKE_FROM_CHECKIN_PAGE"];
+    //[Flurry logEvent:@"LIKE_FROM_CHECKIN_PAGE"];
     if ([self.feedItem.meLiked boolValue]) {
         //Update the UI now
         self.feedItem.numberOfLikes = [NSNumber numberWithInteger:([self.feedItem.numberOfLikes integerValue] - 1)];

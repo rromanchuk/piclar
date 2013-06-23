@@ -38,6 +38,7 @@
 
 // Categories
 #import "NSDate+Formatting.h"
+#import "Flurry.h"
 
 @interface FeedTitleActionSheet : UIActionSheet
 @end
@@ -157,7 +158,6 @@
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, profileButton, nil];
 
     self.navigationItem.hidesBackButton = YES;
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, checkinButton, nil];
     
     self.footerView = [[LoadMoreFooter alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height - 60, self.tableView.frame.size.width, 60)];
     [ODRefreshControl setupRefreshForTableViewController:self withRefreshTarget:self action:@selector(fetchResults:)];
@@ -165,9 +165,10 @@
     UIButton *shootButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [shootButton setImage:[UIImage imageNamed:@"shoot_button"] forState:UIControlStateNormal];
     [shootButton setFrame:CGRectMake(0 , 0, 40, 40)];
+    [shootButton addTarget:self action:@selector(didCheckIn:) forControlEvents:UIControlEventTouchUpInside];
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(100, 100, 40, 40)];
-    view.backgroundColor = [UIColor blackColor];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake((self.view.frame.size.width / 2) - 20, self.view.frame.size.height - 40, 40, 40)];
+    view.backgroundColor = [UIColor clearColor];
     [view addSubview:shootButton];
     //self.visibleViewController.view.superview
 //    [self.navigationController.visibleViewController.view.superview addSubview:shootButton];

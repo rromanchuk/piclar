@@ -40,9 +40,9 @@ typedef enum  {
 
 
 #import "RestObject.h"
+#import "Flurry.h"
 
 @implementation RestObject
-@synthesize externalId;
 
 + (NSError *)customError:(NSError *)error withServerResponse:(NSHTTPURLResponse *)response andJson:(id)JSON {
     NSString *localizedDescription;
