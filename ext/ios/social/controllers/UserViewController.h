@@ -7,14 +7,13 @@
 //
 
 
-#import "PSTCollectionView.h"
 #import "User.h"
 #import "User+Rest.h"
 #import "UserProfileHeader.h"
 #import "CheckinViewController.h"
 #import "BaseCollectionViewController.h"
 
-@interface UserViewController : BaseCollectionViewController <NSFetchedResultsControllerDelegate, PSTCollectionViewDataSource, PSTCollectionViewDelegate, PSTCollectionViewDelegateFlowLayout, DeletionHandler>
+@interface UserViewController : BaseCollectionViewController <NSFetchedResultsControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, DeletionHandler>
 
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;

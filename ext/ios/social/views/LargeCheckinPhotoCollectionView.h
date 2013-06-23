@@ -6,9 +6,8 @@
 //
 //
 
-#import <UIKit/UIKit.h>
 #import "CheckinPhoto.h"
-@interface LargeCheckinPhotoCollectionView : PSUICollectionViewCell
+@interface LargeCheckinPhotoCollectionView : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet CheckinPhoto *checkinPhoto;
 @property (weak, nonatomic) IBOutlet UILabel *likesLabel;
 @property (weak, nonatomic) IBOutlet UILabel *commentsLabel;

@@ -6,10 +6,9 @@
 //
 //
 
-#import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
-@interface PlaceShowHeader : PSUICollectionReusableView
+@interface PlaceShowHeader : UICollectionReusableView
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;

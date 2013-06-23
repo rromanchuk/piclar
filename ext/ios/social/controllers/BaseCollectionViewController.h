@@ -6,9 +6,8 @@
 //
 //
 
-#import <UIKit/UIKit.h>
 
-@interface BaseCollectionViewController : PSUICollectionViewController <NSFetchedResultsControllerDelegate> 
+@interface BaseCollectionViewController : UICollectionViewController <NSFetchedResultsControllerDelegate>
 {
     BOOL needsBackButton;
     BOOL needsCheckinButton;

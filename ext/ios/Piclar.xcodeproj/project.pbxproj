@@ -90,7 +90,6 @@
 		944D985D165A39F5003D4262 /* find-friends.png in Resources */ = {isa = PBXBuildFile; fileRef = 944D985B165A39F5003D4262 /* find-friends.png */; };
 		944D985E165A39F5003D4262 /* find-friends@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 944D985C165A39F5003D4262 /* find-friends@2x.png */; };
 		944D9866165A9B45003D4262 /* LikersBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 944D9865165A9B45003D4262 /* LikersBanner.m */; };
-		944D9869165B8EEB003D4262 /* PSTCollectionViewUpdateItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 944D9868165B8EEB003D4262 /* PSTCollectionViewUpdateItem.m */; };
 		944F7ED515E0E73A0036EF6B /* MapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 944F7ED415E0E73A0036EF6B /* MapAnnotation.m */; };
 		9451C86A1610383600F9B203 /* CommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9451C8691610383600F9B203 /* CommentView.m */; };
 		9451C86E161039B800F9B203 /* comment-separator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9451C86C161039B800F9B203 /* comment-separator@2x.png */; };
@@ -103,17 +102,6 @@
 		945A2C5315F49572004D9C15 /* CommentCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945A2C5215F49572004D9C15 /* CommentCreateViewController.m */; };
 		945D9C0B15DC35F700767B2C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 945D9C0A15DC35F700767B2C /* MapKit.framework */; };
 		945D9C1415DE1FFE00767B2C /* BaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 945D9C1315DE1FFE00767B2C /* BaseView.m */; };
-		945E08A71649584700AC6E92 /* PSTCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 945E08911649584700AC6E92 /* PSTCollectionView.m */; };
-		945E08A81649584700AC6E92 /* PSTCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 945E08931649584700AC6E92 /* PSTCollectionViewCell.m */; };
-		945E08A91649584700AC6E92 /* PSTCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945E08961649584700AC6E92 /* PSTCollectionViewController.m */; };
-		945E08AA1649584700AC6E92 /* PSTCollectionViewData.m in Sources */ = {isa = PBXBuildFile; fileRef = 945E08981649584700AC6E92 /* PSTCollectionViewData.m */; };
-		945E08AB1649584700AC6E92 /* PSTCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 945E089A1649584700AC6E92 /* PSTCollectionViewFlowLayout.m */; };
-		945E08AC1649584700AC6E92 /* PSTCollectionViewItemKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 945E089C1649584700AC6E92 /* PSTCollectionViewItemKey.m */; };
-		945E08AD1649584700AC6E92 /* PSTCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 945E089E1649584700AC6E92 /* PSTCollectionViewLayout.m */; };
-		945E08AE1649584700AC6E92 /* PSTGridLayoutInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 945E08A01649584700AC6E92 /* PSTGridLayoutInfo.m */; };
-		945E08AF1649584700AC6E92 /* PSTGridLayoutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 945E08A21649584700AC6E92 /* PSTGridLayoutItem.m */; };
-		945E08B01649584700AC6E92 /* PSTGridLayoutRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 945E08A41649584700AC6E92 /* PSTGridLayoutRow.m */; };
-		945E08B11649584700AC6E92 /* PSTGridLayoutSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 945E08A61649584700AC6E92 /* PSTGridLayoutSection.m */; };
 		945E08BD16495ABF00AC6E92 /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945E08BC16495ABF00AC6E92 /* UserViewController.m */; };
 		945F6A0215FF91850084784A /* RestNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 945F6A0115FF91850084784A /* RestNotification.m */; };
 		9460385B1602024200085FAE /* UserSettings+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9460385A1602024200085FAE /* UserSettings+Rest.m */; };
@@ -729,8 +717,6 @@
 		944D985C165A39F5003D4262 /* find-friends@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "find-friends@2x.png"; path = "assets/find-friends@2x.png"; sourceTree = "<group>"; };
 		944D9864165A9B45003D4262 /* LikersBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LikersBanner.h; path = views/LikersBanner.h; sourceTree = "<group>"; };
 		944D9865165A9B45003D4262 /* LikersBanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LikersBanner.m; path = views/LikersBanner.m; sourceTree = "<group>"; };
-		944D9867165B8EEB003D4262 /* PSTCollectionViewUpdateItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTCollectionViewUpdateItem.h; sourceTree = "<group>"; };
-		944D9868165B8EEB003D4262 /* PSTCollectionViewUpdateItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTCollectionViewUpdateItem.m; sourceTree = "<group>"; };
 		944F7ED315E0E73A0036EF6B /* MapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapAnnotation.h; path = models/MapAnnotation.h; sourceTree = "<group>"; };
 		944F7ED415E0E73A0036EF6B /* MapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapAnnotation.m; path = models/MapAnnotation.m; sourceTree = "<group>"; };
 		9451C8681610383600F9B203 /* CommentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentView.h; path = views/CommentView.h; sourceTree = "<group>"; };
@@ -749,29 +735,6 @@
 		945D9C0A15DC35F700767B2C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		945D9C1215DE1FFE00767B2C /* BaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseView.h; path = views/BaseView.h; sourceTree = "<group>"; };
 		945D9C1315DE1FFE00767B2C /* BaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseView.m; path = views/BaseView.m; sourceTree = "<group>"; };
-		945E08901649584700AC6E92 /* PSTCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTCollectionView.h; sourceTree = "<group>"; };
-		945E08911649584700AC6E92 /* PSTCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTCollectionView.m; sourceTree = "<group>"; };
-		945E08921649584700AC6E92 /* PSTCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTCollectionViewCell.h; sourceTree = "<group>"; };
-		945E08931649584700AC6E92 /* PSTCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTCollectionViewCell.m; sourceTree = "<group>"; };
-		945E08941649584700AC6E92 /* PSTCollectionViewCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTCollectionViewCommon.h; sourceTree = "<group>"; };
-		945E08951649584700AC6E92 /* PSTCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTCollectionViewController.h; sourceTree = "<group>"; };
-		945E08961649584700AC6E92 /* PSTCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTCollectionViewController.m; sourceTree = "<group>"; };
-		945E08971649584700AC6E92 /* PSTCollectionViewData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTCollectionViewData.h; sourceTree = "<group>"; };
-		945E08981649584700AC6E92 /* PSTCollectionViewData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTCollectionViewData.m; sourceTree = "<group>"; };
-		945E08991649584700AC6E92 /* PSTCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTCollectionViewFlowLayout.h; sourceTree = "<group>"; };
-		945E089A1649584700AC6E92 /* PSTCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTCollectionViewFlowLayout.m; sourceTree = "<group>"; };
-		945E089B1649584700AC6E92 /* PSTCollectionViewItemKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTCollectionViewItemKey.h; sourceTree = "<group>"; };
-		945E089C1649584700AC6E92 /* PSTCollectionViewItemKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTCollectionViewItemKey.m; sourceTree = "<group>"; };
-		945E089D1649584700AC6E92 /* PSTCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTCollectionViewLayout.h; sourceTree = "<group>"; };
-		945E089E1649584700AC6E92 /* PSTCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTCollectionViewLayout.m; sourceTree = "<group>"; };
-		945E089F1649584700AC6E92 /* PSTGridLayoutInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTGridLayoutInfo.h; sourceTree = "<group>"; };
-		945E08A01649584700AC6E92 /* PSTGridLayoutInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTGridLayoutInfo.m; sourceTree = "<group>"; };
-		945E08A11649584700AC6E92 /* PSTGridLayoutItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTGridLayoutItem.h; sourceTree = "<group>"; };
-		945E08A21649584700AC6E92 /* PSTGridLayoutItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTGridLayoutItem.m; sourceTree = "<group>"; };
-		945E08A31649584700AC6E92 /* PSTGridLayoutRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTGridLayoutRow.h; sourceTree = "<group>"; };
-		945E08A41649584700AC6E92 /* PSTGridLayoutRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTGridLayoutRow.m; sourceTree = "<group>"; };
-		945E08A51649584700AC6E92 /* PSTGridLayoutSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTGridLayoutSection.h; sourceTree = "<group>"; };
-		945E08A61649584700AC6E92 /* PSTGridLayoutSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTGridLayoutSection.m; sourceTree = "<group>"; };
 		945E08BB16495ABF00AC6E92 /* UserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserViewController.h; path = controllers/UserViewController.h; sourceTree = "<group>"; };
 		945E08BC16495ABF00AC6E92 /* UserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserViewController.m; path = controllers/UserViewController.m; sourceTree = "<group>"; };
 		945F6A0015FF91850084784A /* RestNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RestNotification.h; path = models/RestNotification.h; sourceTree = "<group>"; };
@@ -1702,38 +1665,6 @@
 			name = Common;
 			sourceTree = "<group>";
 		};
-		945E088F1649584700AC6E92 /* PSTCollectionView */ = {
-			isa = PBXGroup;
-			children = (
-				944D9867165B8EEB003D4262 /* PSTCollectionViewUpdateItem.h */,
-				944D9868165B8EEB003D4262 /* PSTCollectionViewUpdateItem.m */,
-				945E08901649584700AC6E92 /* PSTCollectionView.h */,
-				945E08911649584700AC6E92 /* PSTCollectionView.m */,
-				945E08921649584700AC6E92 /* PSTCollectionViewCell.h */,
-				945E08931649584700AC6E92 /* PSTCollectionViewCell.m */,
-				945E08941649584700AC6E92 /* PSTCollectionViewCommon.h */,
-				945E08951649584700AC6E92 /* PSTCollectionViewController.h */,
-				945E08961649584700AC6E92 /* PSTCollectionViewController.m */,
-				945E08971649584700AC6E92 /* PSTCollectionViewData.h */,
-				945E08981649584700AC6E92 /* PSTCollectionViewData.m */,
-				945E08991649584700AC6E92 /* PSTCollectionViewFlowLayout.h */,
-				945E089A1649584700AC6E92 /* PSTCollectionViewFlowLayout.m */,
-				945E089B1649584700AC6E92 /* PSTCollectionViewItemKey.h */,
-				945E089C1649584700AC6E92 /* PSTCollectionViewItemKey.m */,
-				945E089D1649584700AC6E92 /* PSTCollectionViewLayout.h */,
-				945E089E1649584700AC6E92 /* PSTCollectionViewLayout.m */,
-				945E089F1649584700AC6E92 /* PSTGridLayoutInfo.h */,
-				945E08A01649584700AC6E92 /* PSTGridLayoutInfo.m */,
-				945E08A11649584700AC6E92 /* PSTGridLayoutItem.h */,
-				945E08A21649584700AC6E92 /* PSTGridLayoutItem.m */,
-				945E08A31649584700AC6E92 /* PSTGridLayoutRow.h */,
-				945E08A41649584700AC6E92 /* PSTGridLayoutRow.m */,
-				945E08A51649584700AC6E92 /* PSTGridLayoutSection.h */,
-				945E08A61649584700AC6E92 /* PSTGridLayoutSection.m */,
-			);
-			path = PSTCollectionView;
-			sourceTree = "<group>";
-		};
 		945F69FF15FF91210084784A /* Place */ = {
 			isa = PBXGroup;
 			children = (
@@ -2204,7 +2135,6 @@
 				944D0EC0165CF9AF00CBE114 /* BZFoursquare */,
 				94310E8F165155BC0071D31D /* ODRefreshControl */,
 				6E3CF28C16510FFE0062308A /* Crashlytics.framework */,
-				945E088F1649584700AC6E92 /* PSTCollectionView */,
 				94A426091625B5E2004167B5 /* libsqlite3.dylib */,
 				94A4259A1625AF1C004167B5 /* CFNetwork.framework */,
 				94A4259C1625AF31004167B5 /* MobileCoreServices.framework */,
@@ -3265,17 +3195,6 @@
 				94A0A1581642647B004A8608 /* CheckinCollectionViewCell.m in Sources */,
 				94A0A15B1642717B004A8608 /* UserProfileHeader.m in Sources */,
 				94A0A15F1642751D004A8608 /* ThreadedUpdates.m in Sources */,
-				945E08A71649584700AC6E92 /* PSTCollectionView.m in Sources */,
-				945E08A81649584700AC6E92 /* PSTCollectionViewCell.m in Sources */,
-				945E08A91649584700AC6E92 /* PSTCollectionViewController.m in Sources */,
-				945E08AA1649584700AC6E92 /* PSTCollectionViewData.m in Sources */,
-				945E08AB1649584700AC6E92 /* PSTCollectionViewFlowLayout.m in Sources */,
-				945E08AC1649584700AC6E92 /* PSTCollectionViewItemKey.m in Sources */,
-				945E08AD1649584700AC6E92 /* PSTCollectionViewLayout.m in Sources */,
-				945E08AE1649584700AC6E92 /* PSTGridLayoutInfo.m in Sources */,
-				945E08AF1649584700AC6E92 /* PSTGridLayoutItem.m in Sources */,
-				945E08B01649584700AC6E92 /* PSTGridLayoutRow.m in Sources */,
-				945E08B11649584700AC6E92 /* PSTGridLayoutSection.m in Sources */,
 				945E08BD16495ABF00AC6E92 /* UserViewController.m in Sources */,
 				6E3CF258164AAD320062308A /* UsersListViewController.m in Sources */,
 				942BDFFB164B9DE50039A7C5 /* BaseTableViewCell.m in Sources */,
@@ -3285,7 +3204,6 @@
 				94EB3047165391D30027990A /* LoadMoreFooter.m in Sources */,
 				94D4205B1653E6AC002B6951 /* SmallProfilePhoto.m in Sources */,
 				944D9866165A9B45003D4262 /* LikersBanner.m in Sources */,
-				944D9869165B8EEB003D4262 /* PSTCollectionViewUpdateItem.m in Sources */,
 				9414110F165CF83A00D9EE9F /* FoursquareHelper.m in Sources */,
 				944D0EC5165CF9AF00CBE114 /* BZFoursquare.m in Sources */,
 				944D0EC6165CF9AF00CBE114 /* BZFoursquareRequest.m in Sources */,

@@ -6,9 +6,8 @@
 //
 //
 
-#import <UIKit/UIKit.h>
 #import "ProfilePhotoView.h"
-@interface UserProfileHeader : PSUICollectionReusableView
+@interface UserProfileHeader : UICollectionReusableView
 
 @property (strong, nonatomic) IBOutlet ProfilePhotoView *profilePhoto;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;

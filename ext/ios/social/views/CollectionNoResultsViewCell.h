@@ -7,7 +7,7 @@
 //
 
 
-@interface CollectionNoResultsViewCell : PSUICollectionViewCell
+@interface CollectionNoResultsViewCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *noResultsLabel;
 @end

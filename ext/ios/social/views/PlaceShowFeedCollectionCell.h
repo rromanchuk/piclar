@@ -8,7 +8,7 @@
 
 #import "CheckinPhoto.h"
 
-@interface PlaceShowFeedCollectionCell : PSUICollectionViewCell
+@interface PlaceShowFeedCollectionCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet CheckinPhoto *checkinPhoto;
 @property (weak, nonatomic) IBOutlet UILabel *reviewLabel;
 

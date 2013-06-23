@@ -133,7 +133,7 @@
 
 
 #pragma mark - UICollectionViewDelegate
-- (PSUICollectionViewCell *)collectionView:(PSUICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath;
+- (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 {
     static NSString *CellIdentifier = @"CheckinCollectionCell";
     static NSString *NoResultsCellIdentifier = @"CollectionNoResultsView";
@@ -191,7 +191,7 @@
 }
 
 
-- (CGSize)collectionView:(PSUICollectionView *)collectionView layout:(PSUICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (noResults) {
          return CGSizeMake(320, 320);
     } else {
@@ -204,7 +204,7 @@
     
 }
 
-- (void)collectionView:(PSUICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (noResults)
         return;
@@ -213,7 +213,7 @@
     [self performSegueWithIdentifier:@"CheckinShow" sender:feedItem];
 }
 
-- (CGSize)collectionView:(PSUICollectionView *)collectionView layout:(PSUICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
     if (self.user.isCurrentUser) {
         return CGSizeMake(320, 220);
     } else {
@@ -222,9 +222,9 @@
     }
 }
 
-- (PSUICollectionReusableView *)collectionView:(PSUICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     UserProfileHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:
-                                     PSTCollectionElementKindSectionHeader withReuseIdentifier:@"UserProfileHeader" forIndexPath:indexPath];
+                                     UICollectionElementKindSectionHeader withReuseIdentifier:@"UserProfileHeader" forIndexPath:indexPath];
     self.headerView = headerView;
     self.headerView.locationLabel.text = self.user.location;
     self.headerView.nameLabel.text = self.user.fullName;

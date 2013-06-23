@@ -7,6 +7,7 @@
 //
 
 #import "NotificationBanner.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation NotificationBanner
 

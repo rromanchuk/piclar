@@ -69,7 +69,6 @@
         
         AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         self.managedObjectContext = sharedAppDelegate.managedObjectContext;
-        self.currentUser = sharedAppDelegate.currentUser;
     }
     return self;
 }
@@ -165,12 +164,25 @@
     
     UIButton *shootButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [shootButton setImage:[UIImage imageNamed:@"shoot_button"] forState:UIControlStateNormal];
-    [self.parentViewController.view addSubview:shootButton];
+    [shootButton setFrame:CGRectMake(0 , 0, 40, 40)];
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(100, 100, 40, 40)];
+    view.backgroundColor = [UIColor blackColor];
+    [view addSubview:shootButton];
+    //self.visibleViewController.view.superview
+//    [self.navigationController.visibleViewController.view.superview addSubview:shootButton];
+//    [self.navigationController.visibleViewController.view.superview addSubview:view];
+//    [self.view.superview addSubview:view];
+//    [self.tableView.superview addSubview:view];
+    //[self.navigationController.view addSubview:button];
+    [self.navigationController.view addSubview:view];
+
     
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.currentUser = [User currentUser:self.managedObjectContext];
     if (!self.currentUser) {
         [self performSegueWithIdentifier:@"Login" sender:self];
     }
