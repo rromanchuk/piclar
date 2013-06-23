@@ -157,7 +157,6 @@
 		9480D83C15B995E700075BD5 /* RestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480D83B15B995E600075BD5 /* RestObject.m */; };
 		9480F5B215D2661E0095EC65 /* NewCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480F5B115D2661E0095EC65 /* NewCommentCell.m */; };
 		948BD2DA16077650001946FF /* AddPlaceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 948BD2D916077650001946FF /* AddPlaceCell.m */; };
-		948BD2E81608708B001946FF /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 948BD2E71608708B001946FF /* libFlurry.a */; };
 		948BD2EB160876F0001946FF /* BaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 948BD2EA160876F0001946FF /* BaseTableView.m */; };
 		948BD2F516087BB1001946FF /* TDDatePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 948BD2EE16087BB1001946FF /* TDDatePickerController.m */; };
 		948BD2F616087BB1001946FF /* TDDatePickerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 948BD2EF16087BB1001946FF /* TDDatePickerController.xib */; };
@@ -820,8 +819,6 @@
 		9480F5B115D2661E0095EC65 /* NewCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewCommentCell.m; path = views/NewCommentCell.m; sourceTree = "<group>"; };
 		948BD2D816077650001946FF /* AddPlaceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddPlaceCell.h; path = views/AddPlaceCell.h; sourceTree = "<group>"; };
 		948BD2D916077650001946FF /* AddPlaceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddPlaceCell.m; path = views/AddPlaceCell.m; sourceTree = "<group>"; };
-		948BD2E61608708B001946FF /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
-		948BD2E71608708B001946FF /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
 		948BD2E9160876F0001946FF /* BaseTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseTableView.h; path = controllers/BaseTableView.h; sourceTree = "<group>"; };
 		948BD2EA160876F0001946FF /* BaseTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseTableView.m; path = controllers/BaseTableView.m; sourceTree = "<group>"; };
 		948BD2ED16087BB1001946FF /* TDDatePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDDatePickerController.h; sourceTree = "<group>"; };
@@ -1488,7 +1485,6 @@
 				94E8899315A4442500DF21D7 /* Foundation.framework in Frameworks */,
 				94E8899515A4442500DF21D7 /* CoreGraphics.framework in Frameworks */,
 				E1BBF588D8084C6981EBC058 /* libPods.a in Frameworks */,
-				948BD2E81608708B001946FF /* libFlurry.a in Frameworks */,
 				6E3CF28D16510FFE0062308A /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1981,15 +1977,6 @@
 			name = PlaceSearch;
 			sourceTree = "<group>";
 		};
-		949CF5C115D910CF0065877B /* Flurry */ = {
-			isa = PBXGroup;
-			children = (
-				948BD2E61608708B001946FF /* Flurry.h */,
-				948BD2E71608708B001946FF /* libFlurry.a */,
-			);
-			path = Flurry;
-			sourceTree = "<group>";
-		};
 		94A0A15C16427290004A8608 /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -2151,7 +2138,6 @@
 				94BB6F811600AE8200F0705F /* CoreText.framework */,
 				948F1F1515ED0E9500AAC1C1 /* SystemConfiguration.framework */,
 				945D9C0A15DC35F700767B2C /* MapKit.framework */,
-				949CF5C115D910CF0065877B /* Flurry */,
 				94F36CDF15D4F342003C1A45 /* CoreVideo.framework */,
 				94F36CDD15D4F339003C1A45 /* AVFoundation.framework */,
 				94F36CDB15D4F330003C1A45 /* OpenGLES.framework */,
