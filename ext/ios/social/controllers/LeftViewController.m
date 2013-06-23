@@ -9,7 +9,8 @@
 #import "LeftViewController.h"
 #import "SettingsRowCell.h"
 #import <ViewDeck/IIViewDeckController.h>
-
+#import "UIFont+DEFAULTS.h"
+#import "ApplicatonNavigationController.h"
 @interface LeftViewController ()
 
 @end
@@ -47,11 +48,16 @@
     return numOKPaymentCellRow;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"SettingsRowCell";
     SettingsRowCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
+    cell.labelView.font = [UIFont defaultFont:15];
     // Configure the cell...
     if (indexPath.row == LeftViewRowTypeFeed) {
         cell.imageView.image = [UIImage imageNamed:@"feed_icon"];
@@ -77,7 +83,23 @@
     ALog(@"did tap row with delegate %@", self.delegate);
     ALog(@"parent is %@", self.parentViewController);
     [self.delegate doesNeedSegueFor:@"feed" sender:self];
-    [self.viewDeckController toggleLeftViewAnimated:YES];
+    
+    
+    if (indexPath.row == LeftViewRowTypeFeed) {
+        [self.viewDeckController toggleLeftViewAnimated:YES];
+    } else if (indexPath.row == LeftViewRowTypeProfile) {
+        [self.viewDeckController closeLeftViewAnimated:YES completion:^(IIViewDeckController *controller, BOOL success) {
+            UINavigationController *nc = (UINavigationController *)controller.centerController;
+            [nc.visibleViewController performSegueWithIdentifier:@"UserShow" sender:self];
+            //[n performSegueWithIdentifier:@"UserShow" sender:self];
+        }];
+    } else if (indexPath.row == LeftViewRowTypeNotifications) {
+        [self.viewDeckController closeLeftViewAnimated:YES completion:^(IIViewDeckController *controller, BOOL success) {
+            UINavigationController *nc = (UINavigationController *)controller.centerController;
+            [nc.visibleViewController performSegueWithIdentifier:@"Notifications" sender:self];
+            //[n performSegueWithIdentifier:@"UserShow" sender:self];
+        }];
+    }
     // Navigation logic may go here. Create and push another view controller.
     /*
      <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];

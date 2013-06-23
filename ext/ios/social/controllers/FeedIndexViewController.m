@@ -55,7 +55,7 @@
     CheckinPhoto *fullscreenImage;
     BOOL _loadingMore;
 }
-
+@property (strong, nonatomic) UIView *shootButton;
 @end
 
 @implementation FeedIndexViewController
@@ -166,17 +166,16 @@
     [shootButton setImage:[UIImage imageNamed:@"shoot_button"] forState:UIControlStateNormal];
     [shootButton setFrame:CGRectMake(0 , 0, 40, 40)];
     [shootButton addTarget:self action:@selector(didCheckIn:) forControlEvents:UIControlEventTouchUpInside];
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake((self.view.frame.size.width / 2) - 20, self.view.frame.size.height - 40, 40, 40)];
-    view.backgroundColor = [UIColor clearColor];
-    [view addSubview:shootButton];
+    self.shootButton = [[UIView alloc] initWithFrame:CGRectMake((self.view.frame.size.width / 2) - 20, self.view.frame.size.height - 40, 40, 40)];
+    self.shootButton.backgroundColor = [UIColor clearColor];
+    [self.shootButton addSubview:shootButton];
     //self.visibleViewController.view.superview
 //    [self.navigationController.visibleViewController.view.superview addSubview:shootButton];
 //    [self.navigationController.visibleViewController.view.superview addSubview:view];
 //    [self.view.superview addSubview:view];
 //    [self.tableView.superview addSubview:view];
     //[self.navigationController.view addSubview:button];
-    [self.navigationController.view addSubview:view];
+    [self.navigationController.view addSubview:self.shootButton];
 
     
 }
@@ -201,12 +200,14 @@
     [self setupNavigationTitleWithNotifications];
     
     [Flurry logEvent:@"SCREEN_FEED"];
+    self.shootButton.hidden = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [sharedAppDelegate writeToDisk];
+    self.shootButton.hidden = YES;
 }
 
 
@@ -268,9 +269,9 @@
     [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.photoUrl];
     //[cell.checkinPhoto setLargeCheckinImageForCheckin:[feedItem.checkin firstPhoto] withContext:self.managedObjectContext];
     
-    
+    //[cell.profileImage setImageWithURL:[NSURL URLWithString:[feedItem.user.remoteProfilePhotoUrl]];
+    [cell.profileImage setImageWithURL:[NSURL URLWithString:feedItem.user.remoteProfilePhotoUrl]];
     // Profile image
-    [cell.profileImage setProfileImageForUser:feedItem.user];
     // Set counters
     if ([feedItem.meLiked boolValue]) {
         //cell.likeButton.selected = YES;
