@@ -439,45 +439,62 @@
                                             <rect key="frame" x="5" y="22" width="310" height="310"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <gestureRecognizers/>
                                         </imageView>
                                         <view contentMode="scaleToFill" id="C56-zC-gzr">
-                                            <rect key="frame" x="5" y="332" width="310" height="75"/>
+                                            <rect key="frame" x="5" y="332" width="310" height="60"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="300" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OXT-ol-sNR">
-                                                    <rect key="frame" x="5" y="8" width="142" height="21"/>
+                                                <view contentMode="scaleToFill" id="eA8-k3-Cbn">
+                                                    <rect key="frame" x="174" y="8" width="155" height="41"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="4" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lNk-k6-qmG">
-                                                    <rect key="frame" x="164" y="8" width="126" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                    <subviews>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="4" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lNk-k6-qmG">
+                                                            <rect key="frame" x="0.0" y="0.0" width="135" height="21"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                            <color key="textColor" red="0.18823529411764706" green="0.20000000000000001" blue="0.20784313725490194" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Комментария" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="G5l-7q-aTT">
+                                                            <rect key="frame" x="0.0" y="20" width="135" height="21"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <color key="textColor" red="0.6470588235294118" green="0.6470588235294118" blue="0.6470588235294118" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                </view>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="vertical.png" id="LY7-n7-jbH">
                                                     <rect key="frame" x="155" y="8" width="1" height="41"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Вам понравилось" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="di7-x7-yqa">
-                                                    <rect key="frame" x="5" y="28" width="142" height="21"/>
+                                                <view contentMode="scaleToFill" id="Qyh-WP-0PT">
+                                                    <rect key="frame" x="1" y="8" width="148" height="41"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Комментария" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="G5l-7q-aTT">
-                                                    <rect key="frame" x="164" y="27" width="142" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                    <subviews>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="300" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OXT-ol-sNR">
+                                                            <rect key="frame" x="6" y="1" width="142" height="21"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                            <color key="textColor" red="0.18823529411764706" green="0.20000000000000001" blue="0.20784313725490194" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Вам понравилось" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="di7-x7-yqa">
+                                                            <rect key="frame" x="6" y="20" width="142" height="21"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <color key="textColor" red="0.6470588235294118" green="0.6470588235294118" blue="0.6470588235294118" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <gestureRecognizers/>
+                                                </view>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                            <gestureRecognizers/>
                                         </view>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="q1v-rt-zaR">
                                             <rect key="frame" x="20" y="38" width="25" height="25"/>
@@ -489,7 +506,9 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="checkinPhoto" destination="3mZ-Xb-xgw" id="hFX-G4-27d"/>
+                                    <outlet property="commentsDescriptionLabel" destination="G5l-7q-aTT" id="xey-Fc-qin"/>
                                     <outlet property="commentsLabel" destination="lNk-k6-qmG" id="SP9-PC-Aqj"/>
+                                    <outlet property="likesDescriptionLabel" destination="di7-x7-yqa" id="ngn-Cp-alp"/>
                                     <outlet property="likesLabel" destination="OXT-ol-sNR" id="lJ0-F6-X5V"/>
                                     <outlet property="profileImage" destination="q1v-rt-zaR" id="Vbs-dR-mpb"/>
                                 </connections>
@@ -2291,7 +2310,9 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FeedCell.h"/>
             <relationships>
                 <relationship kind="outlet" name="checkinPhoto" candidateClass="CheckinPhoto"/>
+                <relationship kind="outlet" name="commentsDescriptionLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="commentsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="likesDescriptionLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="likesLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="profileImage" candidateClass="UIImageView"/>
             </relationships>
@@ -2509,9 +2530,7 @@
         <class className="UserViewController" superclassName="BaseCollectionViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UserViewController.h"/>
             <relationships>
-                <relationship kind="action" name="didClickSettings:"/>
                 <relationship kind="action" name="didFollowUnfollowUser:"/>
-                <relationship kind="action" name="didPressCheckinPhoto:"/>
                 <relationship kind="action" name="didSwitchLayout:"/>
                 <relationship kind="action" name="didTapFollowers:"/>
                 <relationship kind="action" name="didTapFollowing:"/>

@@ -14,6 +14,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *likesLabel;
 @property (weak, nonatomic) IBOutlet UILabel *commentsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *likesDescriptionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *commentsDescriptionLabel;
 
 
 

@@ -7,7 +7,7 @@
 //
 
 #import "FeedIndexViewController.h"
-
+#import "UIFont+DEFAULTS.h"
 // Controllers
 #import "PhotoNewViewController.h"
 #import "CommentCreateViewController.h"
@@ -260,6 +260,7 @@
         [cell.profileImage addGestureRecognizer:tapProfile];
     }
     
+    
        
     cell.profileImage.tag = indexPath.row;
     cell.checkinPhoto.tag = indexPath.row;
@@ -275,14 +276,18 @@
     // Set counters
     if ([feedItem.meLiked boolValue]) {
         //cell.likeButton.selected = YES;
+        cell.likesDescriptionLabel.textColor = RGBCOLOR(227, 126, 115);
     } else {
         //cell.likeButton.selected = NO;
+        cell.likesDescriptionLabel.textColor = RGBCOLOR(165, 165, 165);
     }
     
-
+    cell.commentsLabel.font = [UIFont defaultFont:20];
     cell.commentsLabel.text = [NSString stringWithFormat:@"%u", [feedItem.comments count]];
+    cell.commentsDescriptionLabel.font = [UIFont defaultFont:14];
+    cell.likesLabel.font = [UIFont defaultFont:20];
     cell.likesLabel.text = [feedItem.numberOfLikes stringValue];
-       
+    cell.likesDescriptionLabel.font = [UIFont defaultFont:14];
     return cell;
 }
 
@@ -319,7 +324,7 @@
     [loadFeedContext performBlock:^{
         [RestFeedItem loadFeed:^(NSArray *feedItems) {
             for (RestFeedItem *feedItem in feedItems) {
-                FeedItem *cdFeedItem = [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:loadFeedContext];
+                [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:loadFeedContext];
             }
             
             // push to parent
@@ -499,9 +504,8 @@
     
 }
 
-- (IBAction)didLike:(id)sender event:(UIEvent *)event {
-    UITouch *touch = [[event allTouches] anyObject];
-    CGPoint location = [touch locationInView: self.tableView];
+- (IBAction)didLike:(UIGestureRecognizer *)gr {
+    CGPoint location = [gr locationInView: self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: location];
     
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -759,6 +763,10 @@
         if ([cell.checkinPhoto.gestureRecognizers count] == 0) {
             UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
             UILongPressGestureRecognizer *longPressPostCardPhoto = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(didLongTapPhoto:)];
+            UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didLike:)];
+            doubleTap.numberOfTapsRequired = 2;
+            [tapPostCardPhoto requireGestureRecognizerToFail:doubleTap];
+            [cell.checkinPhoto addGestureRecognizer:doubleTap];
             [cell.checkinPhoto addGestureRecognizer:longPressPostCardPhoto];
             [cell.checkinPhoto addGestureRecognizer:tapPostCardPhoto];
             cell.checkinPhoto.userInteractionEnabled = YES;
