@@ -1,4 +1,4 @@
-platform :ios, '5.1'
+platform :ios, '6.1'
 pod 'AFNetworking'
 pod 'TestFlightSDK'
 pod 'SVProgressHUD', '>= 0.8'
