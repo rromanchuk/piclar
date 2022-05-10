@@ -22,8 +22,8 @@ DATABASES = {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'social',
         'USER': 'postgres',
-        'PASSWORD': '***REMOVED***',
-        'HOST': '***REMOVED***',
+        'PASSWORD': '',
+        'HOST': '',
         'PORT': '5432',
         'OPTIONS': {
             # https://docs.djangoproject.com/en/dev/ref/databases/#autocommit-mode
@@ -200,8 +200,8 @@ AUTHENTICATION_BACKENDS = (
 
 AUTH_PROFILE_MODULE = 'person.Person'
 
-VK_CLIENT_ID = '***REMOVED***'
-VK_CLIENT_SECRET = '***REMOVED***'
+VK_CLIENT_ID = ''
+VK_CLIENT_SECRET = ''
 VK_SCOPES = 'friends,photos,status,wall,offline'
 
 POI_PROVIDER_CLIENTS = {
@@ -219,7 +219,7 @@ SOCIAL_PROVIDER_CLIENTS = {
 
 SERVER_ROLE = 'DEBUG'
 
-IMAGE_STORAGE_HOST = '***REMOVED***'
+IMAGE_STORAGE_HOST = ''
 IMAGE_STORAGE_WRITE_TIMEOUT = 10
 
 CDN_URL_SECURABLE = '//%s/' % IMAGE_STORAGE_HOST
@@ -261,40 +261,40 @@ LOGIN_REDIRECT_URL = reverse_lazy('page-index')
 
 INACTIVE_USER_REDIRECT_URL = reverse_lazy('person-fillemail')
 
-DEFAULT_FROM_EMAIL = '***REMOVED***'
+DEFAULT_FROM_EMAIL = ''
 
 #EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 #EMAIL_FILE_PATH = '/tmp/social-mail'
 
-API_CLIENT_SALT = '***REMOVED***'
+API_CLIENT_SALT = ''
 
 DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S %z"
 
-GMAPS_API_KEY = '***REMOVED***'
+GMAPS_API_KEY = ''
 
-YANDEXMAPS_API_KEY = '***REMOVED***'
+YANDEXMAPS_API_KEY = ''
 
 DEFAULT_USERPIC_URL = STATIC_URL + 'img/common/default_userpic.jpg'
 
 GIS_HOST = 'http://***REMOVED***'
 
 
-DEBUG_VK_WALL_ACCESS_TOKEN = '***REMOVED***'
+DEBUG_VK_WALL_ACCESS_TOKEN = ''
 DEBUG_VK_WALL_USER_ID = 181349200
 
-ANALYTICS_ID = '***REMOVED***' # ***REMOVED***
+ANALYTICS_ID = '' # 
 
 # Set your DSN value
-SENTRY_DSN = '***REMOVED***'
+SENTRY_DSN = ''
 HTTPS_SUPPORT = False
 
-FACEBOOK_APP_ID = ***REMOVED***
+FACEBOOK_APP_ID = 
 
 API_DEBUG_FEED_EMPTY = False
 
 MEDIA_USE_RUBY_SCSS=True
 
-UA_KEY = '***REMOVED***'
-UA_SECRET = '***REMOVED***'
+UA_KEY = ''
+UA_SECRET = ''
 
 MOBILE_URL = '/m'
