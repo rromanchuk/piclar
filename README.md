@@ -1,4 +1,6 @@
-# general info
+# Piclar
+
+Abandoned 2012 project.
 
 ![PICLAR1](/piclar1.png)
 ![PICLAR2](/piclar2.png)
