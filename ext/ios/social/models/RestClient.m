@@ -57,7 +57,7 @@
 //}
 //
 //+ (NSString *)signatureWithMethod:(NSString *)method andParams:(NSMutableDictionary *)params andToken:(NSString *)token {
-//    NSString *salt = @"***REMOVED***";
+//    NSString *salt = @"";
 //    NSString *data = [method stringByAppendingString:@" "];
 //    if ([params count] > 0) {
 //        data = [data stringByAppendingString:[self queryParamsWithDict:params]];
