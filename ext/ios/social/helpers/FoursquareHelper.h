@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "BZFoursquare.h"
 
-#define kClientID       @"***REMOVED***"
+#define kClientID       @""
 #define kCallbackURL    @"piclar://foursquare"
 @protocol FoursquareHelperDelegate;
 
