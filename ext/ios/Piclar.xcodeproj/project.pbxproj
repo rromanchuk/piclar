@@ -3399,7 +3399,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "***REMOVED***";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				VALIDATE_PRODUCT = YES;
@@ -3411,7 +3411,7 @@
 			baseConfigurationReference = 62D7E0F10EE14EC7B877AA8E /* Pods.xcconfig */;
 			buildSettings = {
 				ARCHS = armv7;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ryan Romanchuk (***REMOVED***)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ryan Romanchuk ()";
 				FOURSQUARE_CALLBACK_URL = "piclar://foursquare";
 				FOURSQUARE_CLIENT_ID = ;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3444,7 +3444,7 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = Piclar;
-				PROVISIONING_PROFILE = "***REMOVED***";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -3530,7 +3530,7 @@
 			baseConfigurationReference = 62D7E0F10EE14EC7B877AA8E /* Pods.xcconfig */;
 			buildSettings = {
 				ARCHS = armv7;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ryan Romanchuk (***REMOVED***)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ryan Romanchuk ()";
 				FOURSQUARE_CALLBACK_URL = "piclar://foursquare";
 				FOURSQUARE_CLIENT_ID = ;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3566,7 +3566,7 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = Piclar;
-				PROVISIONING_PROFILE = "***REMOVED***";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -3610,7 +3610,7 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = Piclar;
-				PROVISIONING_PROFILE = "B0AE1225-E866-49B4-A43B-C70BACE7A70E";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
