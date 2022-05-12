@@ -58,7 +58,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>piclar</string>
-				<string>fb***REMOVED***</string>
+				<string></string>
 			</array>
 		</dict>
 	</array>
@@ -67,7 +67,7 @@
 	<key>Configuration</key>
 	<string>$(CONFIGURATION)</string>
 	<key>FacebookAppID</key>
-	<string>***REMOVED***</string>
+	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIAppFonts</key>
