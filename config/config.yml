@@ -2,60 +2,60 @@ test:
   name: Ostronaut
   description: Поделитесь своими фотографиями с друзьями и близкими через Вконтакте и Facebook
   host: tripbrodev.ru:3000
-  fb_app_id: ***REMOVED***
-  fb_app_secret: ***REMOVED***
-  aws_access: ***REMOVED***
-  aws_secret: ***REMOVED***
+  fb_app_id: 
+  fb_app_secret: 
+  aws_access: 
+  aws_secret: 
   aws_bucket: ostronaut-dev
-  fsq_key: ***REMOVED***
-  fsq_secret: ***REMOVED***
-  vk_app_id: ***REMOVED***
-  vk_secret: ***REMOVED***
+  fsq_key: 
+  fsq_secret: 
+  vk_app_id: 
+  vk_secret: 
   vk_scopes: "friends,photos,status,wall,offline"
-  contact_email: support@piclar.
-  ua_key: ***REMOVED***
-  ua_secret: ***REMOVED***
+  contact_email: 
+  ua_key: 
+  ua_secret: 
 
 development:
   name: Piclar Development
   description: Поделитесь своими фотографиями с друзьями и близкими через Вконтакте и Facebook
   host: piclardev.com:3000
   asset_host: tripbrodev.com:3000
-  fb_app_id: 251326115000725
-  fb_app_secret: ***REMOVED***
-  aws_access: ***REMOVED***
-  aws_secret: ***REMOVED***
+  fb_app_id: 
+  fb_app_secret: 
+  aws_access: 
+  aws_secret: 
   aws_bucket: piclar
   aws_path: development
-  fsq_key: ***REMOVED***
-  fsq_secret: ***REMOVED***
-  vk_app_id: ***REMOVED***
-  vk_secret: ***REMOVED***
+  fsq_key: 
+  fsq_secret: 
+  vk_app_id: 
+  vk_secret: 
   vk_scopes: "friends,photos,status,wall,offline"
   s3_cdn: s3.amazonaws.com/piclar
-  contact_email: ***REMOVED***
-  ua_key: ***REMOVED***
-  ua_secret: ***REMOVED***
-  ua_master: ***REMOVED***
+  contact_email: 
+  ua_key: 
+  ua_secret: 
+  ua_master: 
 
 production:
   name: Piclar
   description: Поделитесь своими фотографиями с друзьями и близкими через Вконтакте и Facebook
   host: piclar.com
   asset_host: piclar.com
-  fb_app_id: ***REMOVED***
-  fb_app_secret: ***REMOVED***
-  aws_access: ***REMOVED***
-  aws_secret: ***REMOVED***
+  fb_app_id: 
+  fb_app_secret: 
+  aws_access: 
+  aws_secret: 
   aws_bucket: piclar
   aws_path: production
-  fsq_key: ***REMOVED***
-  fsq_secret: ***REMOVED***
-  vk_app_id: ***REMOVED***
-  vk_secret: ***REMOVED***
+  fsq_key: 
+  fsq_secret: 
+  vk_app_id: 
+  vk_secret: 
   vk_scopes: "friends,photos,status,wall,offline"
   s3_cdn: cdn.piclar.com
-  contact_email: ***REMOVED***
-  ua_key: ***REMOVED***
-  ua_secret: ***REMOVED***
-  ua_master: ***REMOVED***
+  contact_email: 
+  ua_key: 
+  ua_secret: 
+  ua_master: 
