@@ -95,7 +95,7 @@ STATICFILES_FINDERS = (
     )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '***REMOVED***'
+SECRET_KEY = ''
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -276,7 +276,7 @@ YANDEXMAPS_API_KEY = ''
 
 DEFAULT_USERPIC_URL = STATIC_URL + 'img/common/default_userpic.jpg'
 
-GIS_HOST = 'http://***REMOVED***'
+GIS_HOST = 'http://'
 
 
 DEBUG_VK_WALL_ACCESS_TOKEN = ''
